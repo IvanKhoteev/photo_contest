@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150528092733) do
+ActiveRecord::Schema.define(version: 20150528105244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "photo_galleries", force: :cascade do |t|
+    t.string   "photo_name"
+    t.string   "photography"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "photo_galleries", ["user_id", "created_at"], name: "index_photo_galleries_on_user_id_and_created_at", using: :btree
+  add_index "photo_galleries", ["user_id"], name: "index_photo_galleries_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "provider",   null: false
@@ -30,4 +41,5 @@ ActiveRecord::Schema.define(version: 20150528092733) do
   add_index "users", ["provider"], name: "index_users_on_provider", using: :btree
   add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
 
+  add_foreign_key "photo_galleries", "users"
 end
