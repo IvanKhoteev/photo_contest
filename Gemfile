@@ -2,6 +2,9 @@ source 'https://rubygems.org'
 ruby '2.2.0'
 
 gem 'bootstrap-sass'
+gem 'omniauth-facebook'
+gem 'omniauth-vkontakte'
+gem 'figaro'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
