@@ -1,0 +1,15 @@
+<%= form_for :photo_gallery, url: photo_galleries_path do |f| %>
+    
+    <p>
+      <%= f.label 'Введите подпись к фотографии:' %> <br>
+      <%= f.text_field :photo_name %>
+    </p>
+  
+    <p>
+      <%= f.label 'Выберите файл:' %> <br>
+      <%= f.file_field :photography, accept: 'image/jpeg,image/gif,image/png' %>
+    </p>
+
+
+  <%= f.submit "Отправить", class: "btn btn-primary" %>
+<% end %>

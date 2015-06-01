@@ -1,4 +1,4 @@
-class CreatePhotoGalleries < ActiveRecord::Migration
+class CreatePhotoGallerys < ActiveRecord::Migration
   def change
     create_table :photo_galleries do |t|
       t.string :photo_name

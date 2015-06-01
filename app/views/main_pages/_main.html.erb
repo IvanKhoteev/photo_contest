@@ -1,0 +1,7 @@
+  <% @photo_galleries.each do |photo_gallery| %>
+    <div class="jumbotron">
+      <%= image_tag photo_gallery.photography %><br>
+      <%= photo_gallery.photo_name %>
+    </div>
+    
+  <% end %>

@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-	has_many :photo_gallerys
+	has_many :photo_galleries
 
 	class << self
 	  def from_omniauth(auth_hash)

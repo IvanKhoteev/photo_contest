@@ -6,9 +6,9 @@ Rails.application.routes.draw do
   root 'main_pages#index'
 
   get '/auth/:provider/callback', to: 'sessions#create'
-
   delete '/logout', to: 'sessions#destroy'
-
+  
+  resources :photo_galleries
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
