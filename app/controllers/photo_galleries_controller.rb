@@ -1,6 +1,7 @@
 class PhotoGalleriesController < ApplicationController
 
- def new 	
+ def new
+   @photo_gallery = PhotoGallery.new
  end
 
  def create

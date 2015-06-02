@@ -1,4 +1,17 @@
 <%= form_for :photo_gallery, url: photo_galleries_path do |f| %>
+
+    <% if @photo_gallery.errors.any? %>
+	    <div id="error_explanation">
+	      <h2>
+	        <%= @photo_gallery.errors.count %> ошибки при сохранении записи:
+	      </h2>
+	      <ul>
+	        <% @photo_gallery.errors.full_messages.each do |msg| %>
+	          <li><%= msg %></li>
+	        <% end %>
+	      </ul>
+	    </div>
+    <% end %>
     
     <p>
       <%= f.label 'Введите подпись к фотографии:' %> <br>
