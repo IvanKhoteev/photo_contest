@@ -1,7 +1,22 @@
   <% @photo_galleries.each do |photo_gallery| %>
     <div class="jumbotron">
-      <%= image_tag photo_gallery.photography %><br>
-      <%= photo_gallery.photo_name %>
+      <table>
+        <tr>
+          <td width='150' valign='middle' align='middle'>
+            <%= image_tag photo_gallery.photography %><br>
+            Текст к фото: <%= photo_gallery.photo_name %><br>
+            <% user = User.find(photo_gallery.user_id) %>
+            Автор фото: <%= user.name %>
+          </td>
+          <td>
+
+          </td>
+          <td>
+            
+            
+          </td>
+        </tr>
+      </table>
     </div>
     
   <% end %>

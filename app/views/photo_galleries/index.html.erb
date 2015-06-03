@@ -1,0 +1,17 @@
+<% @photo_galleries.each do |photo_gallery| %>
+  <div class="jumbotron">
+    <table>
+      <tr>
+        <th>
+          <%= image_tag photo_gallery.photography %><br>
+          Текст к фото: <%= photo_gallery.photo_name %><br>
+        </th>
+        <th></th>
+        <th>
+          
+          
+        </th>
+      </tr>
+    </table>
+  </div>
+<% end %>

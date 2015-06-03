@@ -1,22 +1,26 @@
 class PhotoGalleriesController < ApplicationController
 
- def new
-   @photo_gallery = PhotoGallery.new
- end
+  def index
+    @photo_galleries = PhotoGallery.where(user_id: current_user.id)
+  end
 
- def create
-   @photo_gallery = current_user.photo_galleries.build(photo_gallery_params)
-   if @photo_gallery.save
-     flash[:success] = "Фотография отправлена!"
-     redirect_to @photo_gallery
-   else
-     render 'new'
-   end
- end
+  def new
+    @photo_gallery = PhotoGallery.new
+  end
 
- def show
-  @photo_gallery = PhotoGallery.find(params[:id])
- end
+  def create
+    @photo_gallery = current_user.photo_galleries.build(photo_gallery_params)
+    if @photo_gallery.save
+      flash[:success] = "Фотография отправлена!"
+      redirect_to root_path
+    else
+      render 'new'
+    end
+  end
+
+  def show
+    @photo_gallery = PhotoGallery.find(params[:id])
+  end
 
   private
 
