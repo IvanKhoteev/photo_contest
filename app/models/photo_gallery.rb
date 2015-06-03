@@ -1,6 +1,7 @@
 class PhotoGallery < ActiveRecord::Base
   belongs_to :user
-  has_many :comments
+  has_many   :comments
+  
   default_scope -> { order(created_at: :desc) }
 
   mount_uploader :photography, PhotographyUploader

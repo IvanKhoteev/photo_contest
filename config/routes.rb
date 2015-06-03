@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :photo_galleries do
     resources :comments
   end
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

@@ -2,15 +2,18 @@
   <div class="jumbotron">
     <table>
       <tr>
-        <th>
+        <td width='200' valign='middle' align='middle'>
           <%= image_tag photo_gallery.photography %><br>
           Текст к фото: <%= photo_gallery.photo_name %><br>
-        </th>
-        <th></th>
-        <th>
+          <% user = User.find(photo_gallery.user_id) %>
+        </td>
+        <td>
+
+        </td>
+        <td>
           
           
-        </th>
+        </td>
       </tr>
     </table>
   </div>

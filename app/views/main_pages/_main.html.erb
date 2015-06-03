@@ -1,22 +1,38 @@
-  <% @photo_galleries.each do |photo_gallery| %>
-    <div class="jumbotron">
-      <table>
-        <tr>
-          <td width='150' valign='middle' align='middle'>
-            <%= image_tag photo_gallery.photography %><br>
-            Текст к фото: <%= photo_gallery.photo_name %><br>
-            <% user = User.find(photo_gallery.user_id) %>
-            Автор фото: <%= user.name %>
-          </td>
-          <td>
+<% @photo_galleries.each do |photo_gallery| %>
+  <div class="jumbotron">
+    <table>
+      <tr>
+        <td width='20%' valign='top' align='middle'>
+          <%= image_tag photo_gallery.photography %><br>
+          Текст к фото: <%= photo_gallery.photo_name %><br>
+          <% user = User.find(photo_gallery.user_id) %>
+          Автор фото: <%= user.name %>
+        </td>          
+        <td width='15%' valign='top' align='left'>
+          <h7>Количество голосов:</h7><br>
+          <h7>Вы ... за это фото</h7><br>
+          <h7>Проголосовать за это фото</h7>
+        </td>
+        <td width='63%' valign='top' align='left'>
+          <% if photo_gallery.comments.any? %>
+            <h5>Существующие комментарии:</h5>
+          <% else %>
+            <h5>Комментариев пока нет, оставьте первый комментарий</h5>
+          <% end %>
 
-          </td>
-          <td>
-            
-            
-          </td>
-        </tr>
-      </table>
-    </div>
-    
-  <% end %>
+          <%= form_for([photo_gallery, photo_gallery.comments.build]) do |f| %>
+            <p>
+              <%= f.label 'Оставьте ваш комментарий' %><br>
+              <%= f.text_area :body %>
+            </p>
+            <p>
+              <%= f.submit 'Разместить комментарий', class: 'btn btn-primary' %>
+            </p>
+          <% end %>
+          
+          
+        </td>
+      </tr>
+    </table>
+  </div>
+<% end %>
