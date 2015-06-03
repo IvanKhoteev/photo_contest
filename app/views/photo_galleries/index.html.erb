@@ -2,18 +2,28 @@
   <div class="jumbotron">
     <table>
       <tr>
-        <td width='200' valign='middle' align='middle'>
+        <td width='220' valign='top' align='middle'>
           <%= image_tag photo_gallery.photography %><br>
-          Текст к фото: <%= photo_gallery.photo_name %><br>
-          <% user = User.find(photo_gallery.user_id) %>
+          <%= photo_gallery.photo_name %><br>
+          <% user = User.find(photo_gallery.user_id) %>    
+          <h7>Количество голосов:</h7>
         </td>
-        <td>
-
-        </td>
-        <td>
-          
-          
-        </td>
+       
+        <td valign='top' align='left'>
+          <% if photo_gallery.comments.any? %>
+            <p>Существующие комментарии:<p>
+            <% photo_gallery.comments.each do |compr| %>
+            <div>
+              <h5></h5>
+              <h5>Комментарий: "<%= compr.body %>"</h5>
+              <% user = User.find(compr.user_id.to_i) %>
+              <h5>Автор: <%= user.name %></h5>
+              <h5>_______________</h5>
+            </div>
+            <% end %>
+          <% else %>
+            <h5>Комментариев пока нет, оставьте первый комментарий</h5>
+          <% end %>
       </tr>
     </table>
   </div>
