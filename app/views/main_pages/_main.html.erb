@@ -8,12 +8,15 @@
           <% user = User.find(photo_gallery.user_id) %>
           Автор фото: <%= user.name %>
         </td>          
-        <td width='165' valign='top' align='left'>
-          <h7>Количество голосов:</h7><br>
-          <h7>Вы ... за это фото</h7><br>
-          <h7>Проголосовать за это фото</h7>
+        <td width='165' valign='top' align='middle'>
+          <h7>Количество</h7><br>
+          <h7>голосов:</h7><br>
+          <h2><%= photo_gallery.likes_count %></h2>
+          <%= form_for ([photo_gallery,photo_gallery.likes.build]) do |f| %>
+          <%= f.submit 'LIKE THIS',  class: 'btn btn-link'%>
+          <% end %>
         </td>
-        <td valign='top' align='left'>
+        <td width='530' valign='top' align='left'>
           <% if photo_gallery.comments.any? %>
             <p>Существующие комментарии:<p>
             <% photo_gallery.comments.each do |compr| %>
@@ -30,11 +33,11 @@
           <% end %>
           <% if current_user %>
             <%= form_for([photo_gallery, photo_gallery.comments.build]) do |f| %>
-              <p>
+              <p align='right'>
                 <%= f.label 'Оставьте ваш комментарий' %><br>
                 <%= f.text_area :body %>
               </p>
-              <p>
+              <p align='right'>
                 <%= f.submit 'Разместить комментарий', class: 'btn btn-primary' %>
               </p>
             <% end %>
