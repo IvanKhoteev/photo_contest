@@ -1,7 +1,15 @@
 class PhotoGalleriesController < ApplicationController
 
   def index
-    @photo_galleries = PhotoGallery.where(user_id: current_user.id)
+    sorting = case params[:sorting]
+                when 'ca' then 'created_at ASC'
+                when 'cd' then 'created_at DESC'
+                when 'la' then 'likes_count ASC'
+                when 'ld' then 'likes_count DESC'
+              else
+                'created_at DESC'
+              end
+    @photo_galleries = (PhotoGallery.all).order(sorting)
   end
 
   def new
@@ -19,7 +27,7 @@ class PhotoGalleriesController < ApplicationController
   end
 
   def show
-    @photo_gallery = PhotoGallery.find(params[:id])
+    @photo_galleries = PhotoGallery.where(user_id: current_user.id)
   end
 
   private

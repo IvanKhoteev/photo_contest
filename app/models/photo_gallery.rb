@@ -3,7 +3,7 @@ class PhotoGallery < ActiveRecord::Base
   has_many   :comments
   has_many   :likes
   
-  default_scope -> { order(created_at: :desc) }
+#  default_scope -> { order(created_at: :desc) }
 
   mount_uploader :photography, PhotographyUploader
   validates :user_id, presence: true

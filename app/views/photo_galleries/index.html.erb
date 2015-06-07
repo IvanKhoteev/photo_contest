@@ -1,30 +1,7 @@
-<% @photo_galleries.each do |photo_gallery| %>
-  <div class="jumbotron">
-    <table>
-      <tr>
-        <td width='220' valign='top' align='middle'>
-          <%= image_tag photo_gallery.photography %><br>
-          <%= photo_gallery.photo_name %><br>
-          <% user = User.find(photo_gallery.user_id) %>    
-          <h7>Количество голосов:</h7>
-        </td>
-       
-        <td valign='top' align='left'>
-          <% if photo_gallery.comments.any? %>
-            <p>Существующие комментарии:<p>
-            <% photo_gallery.comments.each do |compr| %>
-            <div>
-              <h5></h5>
-              <h5>Комментарий: "<%= compr.body %>"</h5>
-              <% user = User.find(compr.user_id.to_i) %>
-              <h5>Автор: <%= user.name %></h5>
-              <h5>_______________</h5>
-            </div>
-            <% end %>
-          <% else %>
-            <h5>Комментариев пока нет, оставьте первый комментарий</h5>
-          <% end %>
-      </tr>
-    </table>
-  </div>
+<%= render 'sorting'%>
+
+<% if current_user %>
+  <%= render 'logined_user' %>
+<% else %>
+  <%= render 'not_login' %>
 <% end %>
