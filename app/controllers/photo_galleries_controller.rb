@@ -30,6 +30,13 @@ class PhotoGalleriesController < ApplicationController
     @photo_galleries = PhotoGallery.where(user_id: current_user.id)
   end
 
+  def search
+    ids =[]
+    User.all.each {|n| ids << n.id if n.name.mb_chars.downcase.include?(params[:q].mb_chars.downcase) }
+    @photo_galleries = PhotoGallery.where(user_id: ids)
+    flash.now[:warning] = "По Вашему запросу '#{params[:q]}' ничего не было найдено." unless @photo_galleries.any?
+  end
+
   private
 
     def photo_gallery_params

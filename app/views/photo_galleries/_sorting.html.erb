@@ -1,7 +1,21 @@
 <div class= 'jimbotron'>
-  Упорядочить фото по:<br>
-  <%= link_to 'дате (вверху новые)', photo_galleries_path(sorting: 'ca') %> | 
-  <%= link_to 'дате (вверху старые)', photo_galleries_path(sorting: 'cd') %> | 
-  <%= link_to 'голосам (вверху большие)', photo_galleries_path(sorting: 'ld') %> | 
-  <%= link_to 'голосам (вверху меньшие)', photo_galleries_path(sorting: 'la') %> | 
+	<table valign='middle' width='100%'>
+		<tr>
+			<td height='80em'>
+        Упорядочить фото по:<br>
+        <%= link_to 'дате (вверху новые)', photo_galleries_path(sorting: 'ca') %> | 
+        <%= link_to 'дате (вверху старые)', photo_galleries_path(sorting: 'cd') %> | 
+        <%= link_to 'голосам (вверху большие)', photo_galleries_path(sorting: 'ld') %> | 
+        <%= link_to 'голосам (вверху меньшие)', photo_galleries_path(sorting: 'la') %>
+      </td>
+
+      <td align='right' height='80em'>
+      	<%= form_tag("search", method: "get") do %>
+          <%= label_tag(:q, "Найти фото по автору:") %><br>
+          <%= text_field_tag(:q) %>
+          <%= submit_tag("Найти") %>
+        <% end %>
+      </td>
+    </tr>
+  </table>
 </div>
