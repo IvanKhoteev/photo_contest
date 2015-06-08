@@ -6,6 +6,8 @@ gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
 gem 'figaro'
 
+gem 'will_paginate'
+
 gem 'carrierwave',             '0.10.0'
 gem 'mini_magick',             '3.8.0'
 gem 'fog'

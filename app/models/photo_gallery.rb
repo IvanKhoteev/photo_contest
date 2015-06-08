@@ -1,6 +1,8 @@
 class PhotoGallery < ActiveRecord::Base
 	include AASM
 
+  self.per_page = 10
+
   belongs_to :user
   has_many   :comments
   has_many   :likes

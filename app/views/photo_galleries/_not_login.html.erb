@@ -1,70 +1,66 @@
+<%= will_paginate @photo_galleries %>
 <% @photo_galleries.each do |photo| %>
-    <div class="jumbotron">
-      <table>
-        <tr>
- 
-          <td width='220' valign='top' align='middle'>
-            <%= image_tag photo.photography %><br>
-            <%= photo.photo_name %><br>
-            <% unless current_user %>         
-              <% user = User.find(photo.user_id) %>
-              Автор фото: <%= user.name %>  
-            <% end %>
-          </td>
+  <div class="jumbotron">
+    <table>
+      <tr>
 
-          <td width='165' valign='top' align='middle'>
-            <% if photo.aasm_state == 'approved' %>
-<<<<<<< HEAD
-              <% if photo.likes_count.nil? %>
-                <h7>За данное фото</h7><br>
-                <h7>еще не голосовали</h7>
-              <% else %>
-                <h7>Количество</h7><br>
-                <h7>голосов:</h7><br>
-                <h2><%= photo.likes_count %></h2>
-              <% end %>
-=======
+        <td width='220' valign='top' align='middle'>
+          <%= image_tag photo.photography %><br>
+          <%= photo.photo_name %><br>
+          <% unless current_user %>         
+            <% user = User.find(photo.user_id) %>
+            Автор фото: <%= user.name %>  
+          <% end %>
+        </td>
+
+        <td width='165' valign='top' align='middle'>
+          <% if photo.aasm_state == 'approved' %>
+            <% if photo.likes_count.nil? %>
+              <h7>За данное фото</h7><br>
+              <h7>еще не голосовали</h7>
+            <% else %>
               <h7>Количество</h7><br>
               <h7>голосов:</h7><br>
               <h2><%= photo.likes_count %></h2>
->>>>>>> b07a85bd32e2d2b33fd9679ee601c595e103292d
-            <% elsif photo.aasm_state == 'moderated' %>
-              Фото на модерации
-            <% else %>
-              Фото заблокировано
             <% end %>
-          </td>
-       
-          <td width='60%' valign='top' align='left'>
-            <% if photo.comments.any? %>
-              <p>Существующие комментарии:<p>
-              <% photo.comments.each do |compr| %>
-                <div>
-                  <h5>Комментарий: "<%= compr.body %>"</h5>
-                  <% user = User.find(compr.user_id.to_i) %>
-                  <h5>Автор: <%= user.name %></h5>
-                  <h5>_______________</h5>
-                </div>
-              <% end %>
-            <% else %>
-              <h5 align='right'>Комментариев пока нет, оставьте первый комментарий</h5>
+          <% elsif photo.aasm_state == 'moderated' %>
+            Фото на модерации
+          <% else %>
+            Фото заблокировано
+          <% end %>
+        </td>
+     
+        <td width='60%' valign='top' align='left'>
+          <% if photo.comments.any? %>
+            <p>Существующие комментарии:<p>
+            <% photo.comments.each do |compr| %>
+              <div>
+                <h5>Комментарий: "<%= compr.body %>"</h5>
+                <% user = User.find(compr.user_id.to_i) %>
+                <h5>Автор: <%= user.name %></h5>
+                <h5>_______________</h5>
+              </div>
             <% end %>
-            <% if current_user %>
-              <%= form_for([photo, photo.comments.build]) do |f| %>
-                <p align='right'>
-                  <%= f.label 'Оставьте ваш комментарий' %><br>
-                  <%= f.text_area :body %>
-                </p>
-                <p align='right'>
-                  <%= f.submit 'Разместить комментарий', class: 'btn btn-primary' %>
-                </p>
-              <% end %>
-            <% else %>
-                <p>Только зарегистрированные пользователи могут оставлять комментарии</p>
+          <% else %>
+            <h5 align='right'>Комментариев пока нет, оставьте первый комментарий</h5>
+          <% end %>
+          <% if current_user %>
+            <%= form_for([photo, photo.comments.build]) do |f| %>
+              <p align='right'>
+                <%= f.label 'Оставьте ваш комментарий' %><br>
+                <%= f.text_area :body %>
+              </p>
+              <p align='right'>
+                <%= f.submit 'Разместить комментарий', class: 'btn btn-primary' %>
+              </p>
             <% end %>
-          </td>
+          <% else %>
+              <p>Только зарегистрированные пользователи могут оставлять комментарии</p>
+          <% end %>
+        </td>
 
-        </tr>
-      </table>
-    </div>
-  <% end %>
+      </tr>
+    </table>
+  </div>
+<% end %>
+  <%= will_paginate @photo_galleries %>
