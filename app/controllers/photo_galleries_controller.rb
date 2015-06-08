@@ -9,7 +9,7 @@ class PhotoGalleriesController < ApplicationController
               else
                 'created_at DESC'
               end
-    @photo_galleries = (PhotoGallery.all).order(sorting)
+    @photo_galleries = (PhotoGallery.all).order(sorting).where(aasm_state: :approved)
   end
 
   def new
@@ -33,14 +33,14 @@ class PhotoGalleriesController < ApplicationController
   def search
     ids =[]
     User.all.each {|n| ids << n.id if n.name.mb_chars.downcase.include?(params[:q].mb_chars.downcase) }
-    @photo_galleries = PhotoGallery.where(user_id: ids)
+    @photo_galleries = PhotoGallery.where(user_id: ids, aasm_state: :approved)
     flash.now[:warning] = "По Вашему запросу '#{params[:q]}' ничего не было найдено." unless @photo_galleries.any?
   end
 
   private
 
     def photo_gallery_params
-      params.require(:photo_gallery).permit(:photo_name, :photography)
+      params.require(:photo_gallery).permit(:photo_name, :photography, :state)
     end
 
 end
