@@ -29,7 +29,7 @@ class PhotoGalleriesController < ApplicationController
   end
 
   def show
-    @photo_galleries = PhotoGallery.where(user_id: current_user.id).page(params[:page])
+    @photo_galleries = PhotoGallery.where(user_id: current_user.id, aasm_state: [:approved, :moderated]).page(params[:page])
   end
 
   def search
@@ -42,7 +42,7 @@ class PhotoGalleriesController < ApplicationController
   private
 
     def photo_gallery_params
-      params.require(:photo_gallery).permit(:photo_name, :photography, :state)
+      params.require(:photo_gallery).permit(:photo_name, :photography)
     end
 
 end
