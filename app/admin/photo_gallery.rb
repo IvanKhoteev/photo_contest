@@ -9,14 +9,22 @@ ActiveAdmin.register PhotoGallery do
     column "Current Status", :aasm_state
     column "Moderation", :moderation do |pg|
       columns do
+<<<<<<< HEAD
         if pg.aasm_state == 'moderated'
+=======
+        if pg.aasm_state == 'moderated' then
+>>>>>>> b07a85bd32e2d2b33fd9679ee601c595e103292d
           column do
       	    link_to 'Approve', approve_admin_photo_gallery_path(pg)
           end
           column do
             link_to 'Ban', ban_admin_photo_gallery_path(pg)
           end
+<<<<<<< HEAD
         elsif pg.aasm_state == 'approved'
+=======
+        elsif pg.aasm_state == 'approved' then
+>>>>>>> b07a85bd32e2d2b33fd9679ee601c595e103292d
           column do
             link_to 'Ban', ban_admin_photo_gallery_path(pg)
           end

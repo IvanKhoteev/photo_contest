@@ -14,6 +14,7 @@
 
           <td width='165' valign='top' align='middle'>
             <% if photo.aasm_state == 'approved' %>
+<<<<<<< HEAD
               <% if photo.likes_count.nil? %>
                 <h7>За данное фото</h7><br>
                 <h7>еще не голосовали</h7>
@@ -22,6 +23,11 @@
                 <h7>голосов:</h7><br>
                 <h2><%= photo.likes_count %></h2>
               <% end %>
+=======
+              <h7>Количество</h7><br>
+              <h7>голосов:</h7><br>
+              <h2><%= photo.likes_count %></h2>
+>>>>>>> b07a85bd32e2d2b33fd9679ee601c595e103292d
             <% elsif photo.aasm_state == 'moderated' %>
               Фото на модерации
             <% else %>
