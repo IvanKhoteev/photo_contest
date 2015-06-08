@@ -15,7 +15,7 @@
 
         <td width='165' valign='top' align='middle'>
           <% if photo.aasm_state == 'approved' %>
-            <% if photo.likes_count.nil? %>
+            <% if photo.likes_count = 0 %>
               <h7>За данное фото</h7><br>
               <h7>еще не голосовали</h7>
             <% else %>

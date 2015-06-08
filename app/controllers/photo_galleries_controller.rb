@@ -18,8 +18,10 @@ class PhotoGalleriesController < ApplicationController
 
   def create
     @photo_gallery = current_user.photo_galleries.build(photo_gallery_params)
+    @photo_gallery.likes_count = 0
+    @photo_gallery.save
     if @photo_gallery.save
-      flash[:success] = "Фотография отправлена!"
+      flash[:success] = "Фотография отправлена на модерацию!"
       redirect_to root_path
     else
       render 'new'

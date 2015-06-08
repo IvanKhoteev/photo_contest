@@ -24,14 +24,11 @@ class PhotoGallery < ActiveRecord::Base
 
     event :ban do
       transitions :from => :moderated, :to => :banned
+      transitions :from => :approved, :to => :banned
     end
 
     event :allow do
       transitions :from => :banned, :to => :approved
-    end
-
-    event :ban do
-      transitions :from => :approved, :to => :banned
     end
 
   end
