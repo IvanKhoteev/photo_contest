@@ -23,10 +23,6 @@
               <h7>голосов:</h7><br>
               <h2><%= photo.likes_count %></h2>
             <% end %>
-          <% elsif photo.aasm_state == 'moderated' %>
-            Фото на модерации
-          <% else %>
-            Фото заблокировано
           <% end %>
         </td>
      
