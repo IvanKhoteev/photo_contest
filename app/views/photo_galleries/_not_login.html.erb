@@ -13,9 +13,15 @@
           </td>
 
           <td width='165' valign='top' align='middle'>
-            <h7>Количество</h7><br>
-            <h7>голосов:</h7><br>
-            <h2><%= photo.likes_count %></h2>
+            <% if photo.aasm_state == 'approved' %>
+              <h7>Количество</h7><br>
+              <h7>голосов:</h7><br>
+              <h2><%= photo.likes_count %></h2>
+            <% elsif photo.aasm_state == 'moderated' %>
+              Фото на модерации
+            <% else %>
+              Фото заблокировано
+            <% end %>
           </td>
        
           <td valign='top' align='left'>
