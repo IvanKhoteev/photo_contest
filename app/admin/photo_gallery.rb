@@ -9,14 +9,14 @@ ActiveAdmin.register PhotoGallery do
     column "Current Status", :aasm_state
     column "Moderation", :moderation do |pg|
       columns do
-        if pg.aasm_state == 'moderated' then
+        if pg.aasm_state == 'moderated'
           column do
       	    link_to 'Approve', approve_admin_photo_gallery_path(pg)
           end
           column do
             link_to 'Ban', ban_admin_photo_gallery_path(pg)
           end
-        elsif pg.aasm_state == 'approved' then
+        elsif pg.aasm_state == 'approved'
           column do
             link_to 'Ban', ban_admin_photo_gallery_path(pg)
           end

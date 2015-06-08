@@ -14,9 +14,14 @@
 
           <td width='165' valign='top' align='middle'>
             <% if photo.aasm_state == 'approved' %>
-              <h7>Количество</h7><br>
-              <h7>голосов:</h7><br>
-              <h2><%= photo.likes_count %></h2>
+              <% if photo.likes_count.nil? %>
+                <h7>За данное фото</h7><br>
+                <h7>еще не голосовали</h7>
+              <% else %>
+                <h7>Количество</h7><br>
+                <h7>голосов:</h7><br>
+                <h2><%= photo.likes_count %></h2>
+              <% end %>
             <% elsif photo.aasm_state == 'moderated' %>
               Фото на модерации
             <% else %>
@@ -24,7 +29,7 @@
             <% end %>
           </td>
        
-          <td valign='top' align='left'>
+          <td width='60%' valign='top' align='left'>
             <% if photo.comments.any? %>
               <p>Существующие комментарии:<p>
               <% photo.comments.each do |compr| %>
@@ -36,7 +41,7 @@
                 </div>
               <% end %>
             <% else %>
-              <h5>Комментариев пока нет, оставьте первый комментарий</h5>
+              <h5 align='right'>Комментариев пока нет, оставьте первый комментарий</h5>
             <% end %>
             <% if current_user %>
               <%= form_for([photo, photo.comments.build]) do |f| %>
