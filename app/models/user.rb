@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
-	has_many :photo_galleries
+	has_many :photos
 	has_many :comments
-	has_many :likes, through: :photo_galleries
+	has_many :likes, through: :photos
 
 	class << self
 	  def from_omniauth(auth_hash)

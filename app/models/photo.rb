@@ -1,4 +1,4 @@
-class PhotoGallery < ActiveRecord::Base
+class Photo < ActiveRecord::Base
 	include AASM
 
   self.per_page = 10
@@ -7,11 +7,11 @@ class PhotoGallery < ActiveRecord::Base
   has_many   :comments
   has_many   :likes
   
-  mount_uploader :photography, PhotographyUploader
+  mount_uploader :photo, PhotographyUploader
   
   validates :user_id, presence: true
   validates :photo_name, presence: true, length: { maximum: 100, minimum: 6 }
-  validates :photography, presence: true
+  validates :photo, presence: true
 
   aasm do # default column: aasm_state
     state :moderated, :initial => true
@@ -19,16 +19,11 @@ class PhotoGallery < ActiveRecord::Base
     state :banned
 
     event :approve do
-      transitions :from => :moderated, :to => :approved
+      transitions :from => [:moderated, :banned], :to => :approved
     end
 
     event :ban do
-      transitions :from => :moderated, :to => :banned
-      transitions :from => :approved, :to => :banned
-    end
-
-    event :allow do
-      transitions :from => :banned, :to => :approved
+      transitions :from => [:moderated, :approved], :to => :banned
     end
 
   end

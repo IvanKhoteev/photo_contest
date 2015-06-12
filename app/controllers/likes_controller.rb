@@ -1,8 +1,8 @@
 class LikesController < ApplicationController
 
   def create
-  	@photo_gallery = PhotoGallery.find(params[:photo_gallery_id])
-    @like = @photo_gallery.likes.build
+  	@photo = Photo.find(params[:photo_id])
+    @like = @photo.likes.build
     @like.user_id = current_user.id
     if @like.valid?    
   	  @like.save

@@ -4,18 +4,24 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'photo_galleries#index'
+  root 'photos#index'
 
   get '/auth/:provider/callback', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  get 'search', to: 'photo_galleries#search'
-  
-  resources :photo_galleries do
-    resources :comments
-    resources :likes, only: [:create]
-  end
+  get 'search', to: 'photos#search'
+  get '/users/:user_id/photos', to: 'photos#show', as: 'current_user_photos'
 
+  
+  resources :users, except: [:index] do
+    resources :photos, except: [:index] do
+      resources :comments
+      resources :likes, only: [:create]
+    end
+  end
+  
+  
+  resources :photos, only: :index
   
   
   # Example of regular route:

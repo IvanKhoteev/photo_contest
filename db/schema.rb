@@ -34,28 +34,28 @@ ActiveRecord::Schema.define(version: 20150608082153) do
   create_table "comments", force: :cascade do |t|
     t.text     "body"
     t.integer  "user_id"
-    t.integer  "photo_gallery_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.integer  "photo_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "comments", ["photo_gallery_id"], name: "index_comments_on_photo_gallery_id", using: :btree
+  add_index "comments", ["photo_id"], name: "index_comments_on_photo_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "likes", force: :cascade do |t|
-    t.integer  "photo_gallery_id"
+    t.integer  "photo_id"
     t.integer  "user_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "likes", ["photo_gallery_id", "user_id"], name: "index_likes_on_photo_gallery_id_and_user_id", unique: true, using: :btree
-  add_index "likes", ["photo_gallery_id"], name: "index_likes_on_photo_gallery_id", using: :btree
+  add_index "likes", ["photo_id", "user_id"], name: "index_likes_on_photo_id_and_user_id", unique: true, using: :btree
+  add_index "likes", ["photo_id"], name: "index_likes_on_photo_id", using: :btree
   add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
 
-  create_table "photo_galleries", force: :cascade do |t|
+  create_table "photos", force: :cascade do |t|
     t.string   "photo_name"
-    t.string   "photography"
+    t.string   "photo"
     t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(version: 20150608082153) do
     t.string   "aasm_state"
   end
 
-  add_index "photo_galleries", ["user_id", "created_at"], name: "index_photo_galleries_on_user_id_and_created_at", using: :btree
-  add_index "photo_galleries", ["user_id"], name: "index_photo_galleries_on_user_id", using: :btree
+  add_index "photos", ["user_id", "created_at"], name: "index_photos_on_user_id_and_created_at", using: :btree
+  add_index "photos", ["user_id"], name: "index_photos_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "provider",   null: false
@@ -80,9 +80,9 @@ ActiveRecord::Schema.define(version: 20150608082153) do
   add_index "users", ["provider"], name: "index_users_on_provider", using: :btree
   add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
 
-  add_foreign_key "comments", "photo_galleries"
+  add_foreign_key "comments", "photos"
   add_foreign_key "comments", "users"
-  add_foreign_key "likes", "photo_galleries"
+  add_foreign_key "likes", "photos"
   add_foreign_key "likes", "users"
-  add_foreign_key "photo_galleries", "users"
+  add_foreign_key "photos", "users"
 end
