@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 		end
 
 		def sorting (list)
-			@sorting = case params[:sorting]
+			sorting = case params[:sorting]
 				          when 'ca' then 'created_at ASC'
                   when 'cd' then 'created_at DESC'
                   when 'la' then 'likes_count ASC'
@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
                 else
                   'created_at DESC'
                 end
-      list.order(@sorting)
+      list.order(sorting)
     end
 		 
 		helper_method :current_user

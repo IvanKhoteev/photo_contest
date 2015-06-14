@@ -9,7 +9,7 @@ class PhotosController < ApplicationController
   end
 
   def create
-    @photo = photos.build(photo_params)
+    @photo = current_user.photos.build(photo_params)
     @photo.likes_count = 0
     @photo.save
     if @photo.save
@@ -20,7 +20,7 @@ class PhotosController < ApplicationController
     end
   end
 
-  def show
+  def show_collection
     @photos = sorting(Photo.where(user_id: current_user.id, aasm_state: [:approved, :moderated]).page(params[:page]))
   end
 

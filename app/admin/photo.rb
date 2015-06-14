@@ -4,7 +4,7 @@ ActiveAdmin.register Photo do
     selectable_column
     column :photo_name
     column :photo do |pg|
-      image_tag pg.photo
+      image_tag pg.photo.thumb
     end
     column "Current Status", :aasm_state
     column "Moderation", :moderation do |pg|

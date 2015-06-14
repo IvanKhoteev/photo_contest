@@ -10,18 +10,18 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   get 'search', to: 'photos#search'
-  get '/users/:user_id/photos', to: 'photos#show', as: 'current_user_photos'
+  get '/users/:user_id/photo_collection', to: 'photos#show_collection', as: 'current_user_photo_collection'
 
   
-  resources :users, except: [:index] do
-    resources :photos, except: [:index] do
+  resources :users do
+    resources :photos do
       resources :comments
       resources :likes, only: [:create]
     end
   end
   
   
-  resources :photos, only: :index
+  
   
   
   # Example of regular route:
