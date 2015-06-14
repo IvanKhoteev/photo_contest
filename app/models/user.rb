@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id         :integer          not null, primary key
+#  provider   :string           not null
+#  uid        :string           not null
+#  name       :string
+#  image_url  :string
+#  url        :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_users_on_provider          (provider)
+#  index_users_on_provider_and_uid  (provider,uid) UNIQUE
+#  index_users_on_uid               (uid)
+#
+
 class User < ActiveRecord::Base
 	has_many :photos
 	has_many :comments

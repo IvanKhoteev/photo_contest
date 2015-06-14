@@ -1,3 +1,26 @@
+# == Schema Information
+#
+# Table name: photos
+#
+#  id          :integer          not null, primary key
+#  photo_name  :string
+#  photo       :string
+#  user_id     :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  likes_count :integer
+#  aasm_state  :string
+#
+# Indexes
+#
+#  index_photos_on_user_id                 (user_id)
+#  index_photos_on_user_id_and_created_at  (user_id,created_at)
+#
+# Foreign Keys
+#
+#  fk_rails_c79d76afc0  (user_id => users.id)
+#
+
 class Photo < ActiveRecord::Base
 	include AASM
 
