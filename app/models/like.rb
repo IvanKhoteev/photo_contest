@@ -14,11 +14,6 @@
 #  index_likes_on_photo_id_and_user_id  (photo_id,user_id) UNIQUE
 #  index_likes_on_user_id               (user_id)
 #
-# Foreign Keys
-#
-#  fk_rails_1e09b5dabf  (user_id => users.id)
-#  fk_rails_42d246f2ea  (photo_id => photos.id)
-#
 
 class Like < ActiveRecord::Base
   belongs_to :photo, counter_cache: :likes_count

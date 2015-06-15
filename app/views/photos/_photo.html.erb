@@ -1,11 +1,11 @@
 <div class="jumbotron">
+  
   <table>
     <tr>
       <td width='220' valign='top' align='middle'>
-        <%= image_tag photo.photo.thumb %><br>
+        <%= link_to (image_tag photo.photo.thumb), photo_path(photo.id) %><br>
         <%= photo.photo_name %><br>
-        <% user = User.find(photo.user_id) %>
-        Автор фото: <%= user.name %>
+        <%= "Автор фото: #{User.find(photo.user_id).name}" %>
       </td>
       <td width='165' valign='top' align='middle'>
         <% if photo.aasm_state == 'approved' %>
@@ -28,12 +28,19 @@
       </td>
       <td width='60%'valign='top' align='left'>
         <% if photo.comments.any? %>
-          <p>Существующие комментарии:<p>
-          <% photo.comments.each do |compr| %>
+          <p>Последние комментарии:<p>
+          <% photo.comments.order(created_at: :desc).limit(3).each do |compr| %>
             <div>
-              <h5>Комментарий: "<%= compr.body %>"</h5>
+              <span>Комментарий: 
+                <% compr.body.each_line do |line|  %>
+                <br><span style="font-size: 1em;"> <%= line %></span>
+              <% end %> </span>
+              <% if current_user %>
+                <span style="font-size: 0.7em"><%= link_to 'Ответить', '#' %></span>
+              <% end %>
+              <br>
               <% user = User.find(compr.user_id.to_i) %>
-              <h5>Автор: <%= user.name %></h5>
+              <span style="font-size: 0.7em">Дата: <%= compr.created_at %> Автор: <%= user.name %></span>
               <h5>_______________</h5>
             </div>
           <% end %>
@@ -47,7 +54,7 @@
               <%= f.text_area :body %>
             </p>
             <p align='right'>
-              <%= f.submit 'Разместить комментарий', class: 'btn btn-primary' %>
+              <%= f.submit 'Разместить новый комментарий', class: 'btn btn-primary' %>
             </p>
           <% end %>
         <% end %>

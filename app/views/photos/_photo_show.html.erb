@@ -1,0 +1,62 @@
+<div class="jumbotron">
+  <div align='center'>
+    <%= image_tag photo.photo %><br>
+    <hr>
+    <table width='100%'>
+      <tr>
+        <td width='65%'>
+          <%= photo.photo_name %><br>
+          <% user = User.find(photo.user_id) %>
+          Автор фото: <%= user.name %>
+        </td>
+        <td width='15%' align='right'>
+          <% if photo.likes_count == 0 %>
+            <h7>За данное фото</h7><br>
+            <h7>еще не голосовали</h7>
+          <% else %>
+            <h7>Количество</h7><br>
+            <h7>голосов: </h7>
+          <% end %>
+        </td>
+        <td width='10%' align='center'>
+          
+          <span style="font-size: 35px;"><%= photo.likes_count %></span>
+          
+        </td>
+        <td width='10%'>
+          <% if current_user %>
+            <%= form_for ([current_user, photo, photo.likes.build]) do |f| %>
+              <%= f.submit 'LIKE THIS',  class: 'btn btn-link'%>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+    <hr>
+  </div>
+  <% if photo.comments.any? %>
+    <p>Комментарии:<p>
+    <% photo.comments.each do |compr| %>
+      <div>
+        <span>Комментарий: "<%= compr.body %>"</span>
+        <span style="font-size: 0.7em "><%= link_to 'Ответить', '#' %></span>
+        <% user = User.find(compr.user_id.to_i) %>
+        <h5>Автор: <%= user.name %></h5>
+        <h5>_______________</h5>
+      </div>
+    <% end %>
+  <% else %>
+    <h5 align='right'>Комментариев пока нет, оставьте первый комментарий</h5>
+  <% end %>
+  <% if current_user %>
+    <%= form_for([current_user, photo, photo.comments.build]) do |f| %>
+      <p align='right'>
+        <%= f.label 'Оставьте ваш комментарий' %><br>
+        <%= f.text_area :body %>
+      </p>
+      <p align='right'>
+        <%= f.submit 'Разместить новый комментарий', class: 'btn btn-primary' %>
+      </p>
+    <% end %>
+  <% end %>
+</div>

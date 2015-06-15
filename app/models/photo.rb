@@ -16,10 +16,6 @@
 #  index_photos_on_user_id                 (user_id)
 #  index_photos_on_user_id_and_created_at  (user_id,created_at)
 #
-# Foreign Keys
-#
-#  fk_rails_c79d76afc0  (user_id => users.id)
-#
 
 class Photo < ActiveRecord::Base
 	include AASM

@@ -6,6 +6,9 @@ ActiveAdmin.register Photo do
     column :photo do |pg|
       image_tag pg.photo.thumb
     end
+    column :author do |pg|
+      User.find(pg.user_id).name
+    end
     column "Current Status", :aasm_state
     column "Moderation", :moderation do |pg|
       columns do

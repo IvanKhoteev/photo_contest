@@ -1,5 +1,10 @@
 class CommentsController < ApplicationController
 
+  def new
+    @comment = Comment.new
+    
+  end
+
   def create
     @photo = Photo.find(params[:photo_id])
     @comment = @photo.comments.create(comment_params)
@@ -7,7 +12,8 @@ class CommentsController < ApplicationController
     @comment.save
     redirect_to root_path
   end
- 
+
+
   private
     def comment_params
       params.require(:comment).permit(:body, :user_id)

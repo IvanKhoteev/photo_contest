@@ -7,10 +7,10 @@ class LikesController < ApplicationController
     if @like.valid?    
   	  @like.save
   	  flash[:success] = "Ваш голос принят!"
-      redirect_to root_path
+      redirect_to request.referer
     else
       flash[:warning] = "Вы уже голосовали за это фото!"
-      redirect_to root_path
+      redirect_to request.referer
     end  	
   end
 

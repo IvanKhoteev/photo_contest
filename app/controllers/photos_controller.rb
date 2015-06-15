@@ -20,6 +20,10 @@ class PhotosController < ApplicationController
     end
   end
 
+  def show
+    @photo = Photo.find(params[:id])
+  end
+
   def show_collection
     @photos = sorting(Photo.where(user_id: current_user.id, aasm_state: [:approved, :moderated]).page(params[:page]))
   end
@@ -36,5 +40,7 @@ class PhotosController < ApplicationController
     def photo_params
       params.require(:photo).permit(:photo_name, :photo, :user_id)
     end
+
+    
 
 end

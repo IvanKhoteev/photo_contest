@@ -1,0 +1,28 @@
+Оставьте свой ответ на следующий комментарий:
+<% params[:parent_comment].each_line do |line|  %>
+  <br><span> <%= line %> </span>
+<% end %>
+
+<%= form_for :comment, url: user_photo_comments_path(parent_comment_id: params[:id]) do |f| %>
+
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= @comment.errors.count %> ошибки при сохранении записи:
+      </h2>
+      <ul>
+        <% @comment.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <br>
+  <p>
+    <%= f.label 'Оставьте вашe сообщение' %><br>
+    <%= f.text_area :body, size: "40x5" %>
+  </p>
+  <p>
+    <%= f.submit 'Отправить', class: 'btn btn-primary' %>
+  </p>
+<% end %>

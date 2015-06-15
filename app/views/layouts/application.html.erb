@@ -8,38 +8,33 @@
 </head>
 <body>
 
-	<nav class="navbar navbar-inverse">
-	  <div class="container">
-	    <div class="navbar-header">
-	      <%= link_to 'Фотоконкурс', root_path, class: 'navbar-brand' %>
-	    </div>
-	    <div id="navbar">
-	    	<% if current_user %>
-	        <ul class="nav navbar-nav pull-right">
-	        	<li><%= link_to 'Добавить новое фото', new_user_photo_path(current_user.id) %></li>
-	        	<li><%= link_to 'Посмотреть свои фото', current_user_photo_collection_path(current_user.id) %></li>
-	          <li><%= image_tag current_user.image_url, alt: current_user.name %></li>
-	          <li><%= link_to 'Выйти', logout_path, method: :delete %></li>
-	        </ul>
-	      <% else %>
-	        <ul class="nav navbar-nav">
-	        	<li><%= link_to 'Facebook', '/auth/facebook' %></li>
-		      	<li><%= link_to 'Вконтакте', '/auth/vkontakte' %></li>
-		      </ul>
-	      <% end %>
-	    </div>
-	  </div>
-	</nav>
-	 
-	<div class="container">
-	  <% flash.each do |key, value| %>
-	    <div class="alert alert-<%= key %>">
-	      <%= value %>
-	    </div>
-	  <% end %>
-	 
-	  <%= yield %>
-	</div>
+  <nav class="navbar navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <%= link_to 'Фотоконкурс', root_path, class: 'navbar-brand' %>
+      </div>
+      <div id="navbar">
+        <% if current_user %>
+          <ul class="nav navbar-nav pull-right">
+            <li><%= link_to 'Добавить новое фото', new_user_photo_path(current_user.id) %></li>
+            <li><%= link_to 'Посмотреть свои фото', current_user_photo_collection_path(current_user.id) %></li>
+            <li><%= image_tag current_user.image_url, alt: current_user.name %></li>
+            <li><%= link_to 'Выйти', logout_path, method: :delete %></li>
+          </ul>
+        <% else %>
+          <ul class="nav navbar-nav">
+            <li><%= link_to 'Facebook', '/auth/facebook' %></li>
+            <li><%= link_to 'Вконтакте', '/auth/vkontakte' %></li>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+  	<%= render 'photos/flash_message' %>
+     <%= yield %>
+  </div>
 
 </body>
 </html>
