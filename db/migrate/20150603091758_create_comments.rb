@@ -4,7 +4,7 @@ class CreateComments < ActiveRecord::Migration
       t.text       :body
       t.references :user, index: true, foreign_key: true
       t.references :photo, index: true, foreign_key: true
-      t.references :parent_comment, index: true
+      t.integer :parent_comment_id, index: true, foreign_key: true
 
       t.timestamps null: false
     end

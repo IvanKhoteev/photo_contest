@@ -1,9 +1,11 @@
 Оставьте свой ответ на следующий комментарий:
-<% params[:parent_comment].each_line do |line|  %>
+<% parent_comment = Comment.find(params[:parent_comment_id])%>
+<% photo = Photo.find(params[:photo_id]) %>
+<% parent_comment.body.each_line do |line|  %>
   <br><span> <%= line %> </span>
 <% end %>
 
-<%= form_for :comment, url: user_photo_comments_path(parent_comment_id: params[:id]) do |f| %>
+<%= form_for ([current_user, photo, parent_comment, photo.comments.build]) do |f| %>
 
   <% if @comment.errors.any? %>
     <div id="error_explanation">

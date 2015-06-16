@@ -1,0 +1,70 @@
+<p>Последние комментарии:</p>
+          <div>
+            <% printed_comment_array = [] %>
+            <% photo.comments.each do |com| %>
+              <div>
+                  <% com.body.each_line do |line|  %>
+                    <span style="font-size: 1em;"> <%= line %></span><br>
+                  <% end %>
+                  <% user = User.find(com.user_id.to_i) %>
+                  <span width='100%' style="font-size: 0.7em"> Дата публикации: <%= com.created_at %> Автор комментария: <%= user.name %></span>
+                  <% if current_user %>
+                    <span width='100%' style="font-size: 0.7em"><%= link_to 'Ответить на комментарий', new_user_photo_comment_comment_path(parent_comment_id: com, user_id: current_user, photo_id: photo) %></span>
+                  <% end %>
+                
+              
+                  <% sub_com = com.sub_comments %>
+                  <% sub_com.each do |sub_sub| %>
+                    <% printed_comment_array << sub_sub %>
+                    <% unless printed_comment_array.include?(sub_sub.id) do%>
+                      <div style="margin-left: 20%">
+                        <% sub_sub.body.each_line do |line|  %>
+                          <span style="font-size: 1em;"> <%= line %></span><br>
+                        <% end %>
+                        <% user = User.find(sub_sub.user_id.to_i) %>
+                        <span width='100%' style="font-size: 0.7em"> Дата публикации: <%= sub_sub.created_at %> Автор комментария: <%= user.name %></span>
+                        <% if current_user %>
+                          <span width='100%' style="font-size: 0.7em"><%= link_to 'Ответить на комментарий', new_user_photo_comment_comment_path(parent_comment_id: sub_sub, user_id: current_user, photo_id: photo) %></span>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+
+
+
+
+
+
+
+
+
+
+           <div class='comment_body' style="background-color: white; border: dotted 1px; padding: 5px; margin-left: 30px; margin-bottom: 4px;">
+                
+                    <% com.body.each_line do |line|  %>
+                        <span style="font-size: 1em;"> <%= line %></span><br>
+                    <% end %>
+                    <% user = User.find(com.user_id.to_i) %>
+                    <span width='100%' style="font-size: 0.7em"> Дата публикации: <%= com.created_at %> Автор комментария: <%= user.name %></span>
+                    <% if current_user %>
+                      <span width='100%' style="font-size: 0.7em"><%= link_to 'Ответить на комментарий', new_user_photo_comment_comment_path(parent_comment_id: com, user_id: current_user, photo_id: photo) %></span>
+                    <% end %>
+
+                    <% printed_comment_array << com.id %>
+                    <% puts '-------------------------------------' %>
+                    <% puts printed_comment_array %>
+                    <% puts '-------------------------------------' %>
+
+                    <% com = com.sub_comments %>
+
+                    <% puts '+++++++++++++++++++++++++++++++++++++' %>
+                    <% puts com %>
+                    <% puts '+++++++++++++++++++++++++++++++++++++' %>
+
+
+
+                  </div>

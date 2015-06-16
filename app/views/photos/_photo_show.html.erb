@@ -34,29 +34,34 @@
     </table>
     <hr>
   </div>
-  <% if photo.comments.any? %>
-    <p>Комментарии:<p>
-    <% photo.comments.each do |compr| %>
-      <div>
-        <span>Комментарий: "<%= compr.body %>"</span>
-        <span style="font-size: 0.7em "><%= link_to 'Ответить', '#' %></span>
-        <% user = User.find(compr.user_id.to_i) %>
-        <h5>Автор: <%= user.name %></h5>
-        <h5>_______________</h5>
-      </div>
-    <% end %>
-  <% else %>
-    <h5 align='right'>Комментариев пока нет, оставьте первый комментарий</h5>
-  <% end %>
-  <% if current_user %>
-    <%= form_for([current_user, photo, photo.comments.build]) do |f| %>
-      <p align='right'>
-        <%= f.label 'Оставьте ваш комментарий' %><br>
-        <%= f.text_area :body %>
-      </p>
-      <p align='right'>
-        <%= f.submit 'Разместить новый комментарий', class: 'btn btn-primary' %>
-      </p>
-    <% end %>
-  <% end %>
+  <table width='100%'>
+    <tr>
+      <td>
+        <% if photo.comments.any? %>
+          <span style="font-size: 1.2em; margin-left: 30px;">Последние коментарии:</span><br>
+          <% @comments = photo.comments.order(updated_at: :desc, id: :asc) %> 
+          <% @printed_comment = [] %>    
+
+          <%= render '/comments/comments', comments: @comments %>
+        <% else %>
+          <h5 align='right'>Комментариев пока нет, оставьте первый комментарий</h5>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <% if current_user %>
+          <%= form_for([current_user, photo, photo.comments.build]) do |f| %>
+            <p align='right'>
+              <%= f.label 'Оставьте ваш комментарий' %><br>
+              <%= f.text_area :body %>
+            </p>
+            <p align='right'>
+              <%= f.submit 'Разместить новый комментарий', class: 'btn btn-primary' %>
+            </p>
+          <% end %>
+        <% end %>
+      </td>
+    </tr>
+ </table>
 </div>

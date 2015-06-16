@@ -63,11 +63,13 @@ Rails.application.routes.draw do
   get 'search', to: 'photos#search'
   get '/users/:user_id/photo_collection', to: 'photos#show_collection', as: 'current_user_photo_collection'
   get 'photo/:id', to: 'photos#show', as: 'photo'
+  get '/users/:user_id/photos/:photo_id/comments/:parent_comment_id/comments/new', to: 'comments#new', as: 'new_user_photo_comment_comment'
+  post '/users/:user_id/photos/:photo_id/comments/:parent_comment_id/comments', to: 'comments#create_sub_comment', as: 'user_photo_comment_comments'
 
   
   resources :users do
     resources :photos do
-      resources :comments
+      resources :comments 
       resources :likes, only: [:create]
     end
   end

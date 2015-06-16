@@ -28,22 +28,10 @@
       </td>
       <td width='60%'valign='top' align='left'>
         <% if photo.comments.any? %>
-          <p>Последние комментарии:<p>
-          <% photo.comments.order(created_at: :desc).limit(3).each do |compr| %>
-            <div>
-              <span>Комментарий: 
-                <% compr.body.each_line do |line|  %>
-                <br><span style="font-size: 1em;"> <%= line %></span>
-              <% end %> </span>
-              <% if current_user %>
-                <span style="font-size: 0.7em"><%= link_to 'Ответить', '#' %></span>
-              <% end %>
-              <br>
-              <% user = User.find(compr.user_id.to_i) %>
-              <span style="font-size: 0.7em">Дата: <%= compr.created_at %> Автор: <%= user.name %></span>
-              <h5>_______________</h5>
-            </div>
-          <% end %>
+          <span style="font-size: 1.2em; margin-left: 30px;">Последние коментарии:</span><br>
+          <% @comments = photo.comments.order(updated_at: :desc, id: :asc).limit(3) %> 
+          <% @printed_comment = [] %>    
+          <%= render '/comments/comments', comments: @comments %>
         <% else %>
           <h5 align='right'>Комментариев пока нет, оставьте первый комментарий</h5>
         <% end %>
