@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     rescue
 	    flash[:warning] = "Возникла ошибка при попытке войти в систему"
 	  end
-	  redirect_to request.referer
+	  redirect_to root_path
   end
 
   def destroy

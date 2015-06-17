@@ -24,17 +24,8 @@ class CommentsController < ApplicationController
       parent_comment = @comment.parent_comment
       parent_comment.updated_at = @comment.updated_at
       parent_comment.save
-      puts '+++++++++++++++++++++++++'
-      puts @comment.id
       @comment = parent_comment
-      puts @comment.id
-      puts '+++++++++++++++++++++++++'
     end
-
-
-   
-
-
     redirect_to root_path
     
   end

@@ -2,8 +2,10 @@ source 'https://rubygems.org'
 ruby '2.2.0'
 
 gem 'bootstrap-sass'
+gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
+gem 'omniauth-instagram'
 gem 'figaro'
 
 gem 'will_paginate'
