@@ -1,7 +1,7 @@
 class PhotosController < ApplicationController
 
   def index
-    @photos = sorting(Photo.all.where(aasm_state: :approved).page(params[:page]))
+    @photos = sorting(Photo.approved.page(params[:page]))
   end
 
   def new
@@ -9,15 +9,23 @@ class PhotosController < ApplicationController
   end
 
   def create
-    @photo = current_user.photos.build(photo_params)
-    @photo.likes_count = 0
-    @photo.save
+    @photo = current_user.photos.create(photo_params)
     if @photo.save
       flash[:success] = "Фотография отправлена на модерацию!"
       redirect_to root_path
     else
       render 'new'
     end
+
+
+ #   outcome = Photos::Create.run(photo_params.merge(user: current_user))
+ #   if outcome.success?
+ #     @photo = outcome.result
+ #     flash[:success] = "Фотография отправлена на модерацию!"
+ #     redirect_to root_path
+ #   else
+ #     render outcome.errors
+ #   end
   end
 
   def show
@@ -29,18 +37,30 @@ class PhotosController < ApplicationController
   end
 
   def search
-    ids =[]
-    User.all.each {|n| ids << n.id if n.name.mb_chars.downcase.include?(params[:q].mb_chars.downcase) }
-    @photos = Photo.where(user_id: ids, aasm_state: :approved).page(params[:page])
-    flash.now[:warning] = "По Вашему запросу '#{params[:q]}' ничего не было найдено." unless @photo_galleries.any?
+    flash.now[:warning] = "По Вашему запросу '#{params[:q]}' ничего не было найдено." unless @photos.any?
+  end
+
+  def instagram_search
+    @client = Instagram.client(access_token: session[:access_token])
+    @tags = @client.tag_search(params[:q])
   end
 
   private
 
     def photo_params
-      params.require(:photo).permit(:photo_name, :photo, :user_id)
+      params.require(:photo).permit(:name, :photo)
     end
 
-    
+    def sorting (list)
+      sorting = case params[:sorting]
+                  when 'ca' then 'created_at ASC'
+                  when 'cd' then 'created_at DESC'
+                  when 'la' then 'likes_count ASC'
+                  when 'ld' then 'likes_count DESC'
+                else
+                  'created_at DESC'
+                end
+      list.order(sorting)
+    end
 
 end

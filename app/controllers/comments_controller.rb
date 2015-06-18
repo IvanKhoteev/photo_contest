@@ -7,18 +7,14 @@ class CommentsController < ApplicationController
 
   def create
     @photo = Photo.find(params[:photo_id])
-    @comment = @photo.comments.build(comment_params)
-    @comment.user_id = current_user.id
-    @comment.save
+    @comment = @photo.comments.build(comment_params.merge(user_id: current_user.id))
     redirect_to request.referer
   end
 
   def create_sub_comment
     @photo = Photo.find(params[:photo_id])
-    @comment = @photo.comments.build(comment_params)
+    @comment = @photo.comments.create(comment_params.merge(user_id: current_user.id))
     @comment.parent_comment_id = params[:parent_comment_id]
-    @comment.user_id = current_user.id
-    @comment.save
 
     while @comment.parent_comment do
       parent_comment = @comment.parent_comment

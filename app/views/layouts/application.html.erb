@@ -15,6 +15,7 @@
       </div>
       <div id="navbar">
         <% if current_user %>
+          
           <ul class="nav navbar-nav pull-right">
             <li><%= link_to 'Добавить новое фото', new_user_photo_path(current_user.id) %></li>
             <li><%= link_to 'Посмотреть свои фото', current_user_photo_collection_path(current_user.id) %></li>

@@ -5,7 +5,7 @@
     <table width='100%'>
       <tr>
         <td width='65%'>
-          <%= photo.photo_name %><br>
+          <%= photo.name %><br>
           <% user = User.find(photo.user_id) %>
           Автор фото: <%= user.name %>
         </td>
@@ -39,10 +39,9 @@
       <td>
         <% if photo.comments.any? %>
           <span style="font-size: 1.2em; margin-left: 30px;">Последние коментарии:</span><br>
-          <% @comments = photo.comments.order(updated_at: :desc, id: :asc) %> 
-          <% @printed_comment = [] %>    
+          <% @comments = photo.comments.order(created_at: :asc).where(parent_comment_id: nil) %> 
 
-          <%= render '/comments/comments', comments: @comments %>
+          <%= render partial: '/comments/comment', collection: @comments, as: :comment %>
         <% else %>
           <h5 align='right'>Комментариев пока нет, оставьте первый комментарий</h5>
         <% end %>

@@ -4,7 +4,7 @@
     <tr>
       <td width='220' valign='top' align='middle'>
         <%= link_to (image_tag photo.photo.thumb), photo_path(photo.id) %><br>
-        <%= photo.photo_name %><br>
+        <%= photo.name %><br>
         <%= "Автор фото: #{User.find(photo.user_id).name}" %>
       </td>
       <td width='165' valign='top' align='middle'>
@@ -29,9 +29,8 @@
       <td width='60%'valign='top' align='left'>
         <% if photo.comments.any? %>
           <span style="font-size: 1.2em; margin-left: 30px;">Последние коментарии:</span><br>
-          <% @comments = photo.comments.order(updated_at: :desc, id: :asc).limit(3) %> 
-          <% @printed_comment = [] %>    
-          <%= render '/comments/comments', comments: @comments %>
+          <% @comments = photo.comments.order(created_at: :asc).where(parent_comment_id: nil).limit(3) %> 
+          <%= render partial: '/comments/comment', collection: @comments, as: :comment %>
         <% else %>
           <h5 align='right'>Комментариев пока нет, оставьте первый комментарий</h5>
         <% end %>

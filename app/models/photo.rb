@@ -3,12 +3,12 @@
 # Table name: photos
 #
 #  id          :integer          not null, primary key
-#  photo_name  :string
+#  name        :string
 #  photo       :string
 #  user_id     :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  likes_count :integer
+#  likes_count :integer          default(0)
 #  aasm_state  :string
 #
 # Indexes
@@ -28,10 +28,6 @@ class Photo < ActiveRecord::Base
   
   mount_uploader :photo, PhotographyUploader
   
-  validates :user_id, presence: true
-  validates :photo_name, presence: true, length: { maximum: 100, minimum: 6 }
-  validates :photo, presence: true
-
   aasm do # default column: aasm_state
     state :moderated, :initial => true
     state :approved

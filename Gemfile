@@ -1,7 +1,10 @@
 source 'https://rubygems.org'
 ruby '2.2.0'
 
+gem 'instagram'
+
 gem 'bootstrap-sass'
+
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'

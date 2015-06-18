@@ -2,7 +2,7 @@ ActiveAdmin.register Photo do
 
   index do
     selectable_column
-    column :photo_name
+    column :name
     column :photo do |pg|
       image_tag pg.photo.thumb
     end

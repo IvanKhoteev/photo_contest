@@ -1,20 +1,15 @@
-module Photo
+module Photos
   class Create < Mutations::Command
 
     required do
       model  :user
-      string :photo_name
+      string :name, min_length: 5
       file   :photo
     end
 
     def execute
-      photo = current_user.photos.build(params)
-      photo.likes_count = 0
-      photo.save
-      photo
+      user.photos.create(name: :name, photo: :photo)
     end
-
-    
-
+  
   end
 end

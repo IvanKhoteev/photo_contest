@@ -60,11 +60,11 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  get 'search', to: 'photos#search'
+  get 'instagram_search', to: 'photos#instagram_search'
   get '/users/:user_id/photo_collection', to: 'photos#show_collection', as: 'current_user_photo_collection'
   get 'photo/:id', to: 'photos#show', as: 'photo'
-  get '/users/:user_id/photos/:photo_id/comments/:parent_comment_id/comments/new', to: 'comments#new', as: 'new_user_photo_comment_comment'
-  post '/users/:user_id/photos/:photo_id/comments/:parent_comment_id/comments', to: 'comments#create_sub_comment', as: 'user_photo_comment_comments'
+  get '/users/:user_id/photos/:photo_id/comments/:parent_comment_id/comment/new', to: 'comments#new', as: 'new_user_photo_comments_comment'
+  post '/users/:user_id/photos/:photo_id/comments/:parent_comment_id/comment', to: 'comments#create_sub_comment', as: 'user_photo_comments_comments'
 
   
   resources :users do

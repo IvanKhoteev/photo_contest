@@ -1,0 +1,12 @@
+  <div class='comment_body' style="background-color: white; border: dotted 1px; padding: 5px; margin-left: 30px; margin-bottom: 4px;">
+    <% comment.body.each_line do |line|  %>
+      <span style="font-size: 1em;"> <%= line %></span><br>
+    <% end %>
+    <% user = User.find(comment.user_id.to_i) %>
+    <span width='100%' style="font-size: 0.7em"> Дата публикации: <%= comment.created_at %> Автор комментария: <%= user.name %></span>
+    <% if current_user %>
+      <span width='100%' style="font-size: 0.7em"><%= link_to 'Ответить на комментарий', new_user_photo_comments_comment_path(parent_comment_id: comment, user_id: current_user, photo_id: comment.photo_id) %></span>
+    <% end %>
+
+    <%= render partial: '/comments/comment', collection: comment.sub_comments if comment.sub_comments %>
+  </div>
