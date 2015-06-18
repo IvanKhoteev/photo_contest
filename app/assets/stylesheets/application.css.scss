@@ -1,11 +1,14 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import 'bootstrap/theme';
+@import 'comments';
 
 
-nav {
+.nav {
   img {
     max-width: 48px;
   }
 }
+
+
 

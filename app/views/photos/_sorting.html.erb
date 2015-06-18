@@ -1,10 +1,5 @@
 Упорядочить фото по:<br>
-<% if current_user %>
-  <% id = current_user.id %>
-<% else %>
-  <% id = 0 %>
-<% end %>
-<%= link_to 'дате (вверху старые)', user_photos_path(id, sorting: 'ca') %> | 
-<%= link_to 'дате (вверху новые)', user_photos_path(id, sorting: 'cd') %> | 
-<%= link_to 'голосам (вверху большие)', user_photos_path(id, sorting: 'ld') %> | 
-<%= link_to 'голосам (вверху меньшие)', user_photos_path(id, sorting: 'la') %>
+<%= link_to 'дате (вверху старые)', user_photos_path(sorting: 'ca') %> | 
+<%= link_to 'дате (вверху новые)', user_photos_path(sorting: 'cd') %> | 
+<%= link_to 'голосам (вверху большие)', user_photos_path(sorting: 'ld') %> | 
+<%= link_to 'голосам (вверху меньшие)', user_photos_path(sorting: 'la') %>

@@ -33,7 +33,7 @@ class PhotosController < ApplicationController
   end
 
   def show_collection
-    @photos = sorting(Photo.where(user_id: current_user.id, aasm_state: [:approved, :moderated]).page(params[:page]))
+    @photos = sorting(Photo.where(user_id: current_user, aasm_state: [:approved, :moderated]).page(params[:page]))
   end
 
   def search
@@ -41,7 +41,7 @@ class PhotosController < ApplicationController
   end
 
   def instagram_search
-    @client = Instagram.client(access_token: session[:access_token])
+    @client = Instagram.client(access_token: ENV['ACCESS_TOKEN'])
     @tags = @client.tag_search(params[:q])
   end
 

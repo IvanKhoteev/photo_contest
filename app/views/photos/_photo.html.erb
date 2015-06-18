@@ -28,11 +28,11 @@
       </td>
       <td width='60%'valign='top' align='left'>
         <% if photo.comments.any? %>
-          <span style="font-size: 1.2em; margin-left: 30px;">Последние коментарии:</span><br>
+          <p align='center'>Последние комментарии:</p>
           <% @comments = photo.comments.order(created_at: :asc).where(parent_comment_id: nil).limit(3) %> 
           <%= render partial: '/comments/comment', collection: @comments, as: :comment %>
         <% else %>
-          <h5 align='right'>Комментариев пока нет, оставьте первый комментарий</h5>
+          <p align='center'>Комментариев пока нет, оставьте первый комментарий</p>
         <% end %>
         <% if current_user %>
           <%= form_for([current_user, photo, photo.comments.build]) do |f| %>

@@ -20,7 +20,7 @@
         </td>
         <td width='10%' align='center'>
           
-          <span style="font-size: 35px;"><%= photo.likes_count %></span>
+          <span><%= photo.likes_count %></span>
           
         </td>
         <td width='10%'>
@@ -38,7 +38,7 @@
     <tr>
       <td>
         <% if photo.comments.any? %>
-          <span style="font-size: 1.2em; margin-left: 30px;">Последние коментарии:</span><br>
+          <p align='center'>Последние комментарии:</p>
           <% @comments = photo.comments.order(created_at: :asc).where(parent_comment_id: nil) %> 
 
           <%= render partial: '/comments/comment', collection: @comments, as: :comment %>

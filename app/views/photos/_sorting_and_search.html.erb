@@ -4,22 +4,16 @@
 			<td height='80em'>
         <%= render 'sorting' %>
       </td>
-      <td align='right' style='padding-right: 10px'>
-        <% if (current_user && current_user.provider == 'instagram') %>
-            <%= form_tag("instagram_search", method: "get") do %>
-            <%= label_tag(:q, "Найти фото по хэш-тегу:") %><br>
-            <%= text_field_tag(:q) %>
-            <%= submit_tag("Найти") %>
-            <% end %>
-          <% end %>
-      </td>
-      
       <td align='right'>
-      	<%= form_tag("search", method: "get") do %>
-          <%= label_tag(:q, "Найти фото по автору:") %><br>
+        <%= form_tag("instagram_search", method: "get") do %>
+          <%= label_tag(:q, "Найти фото по хэш-тегу:") %><br>
           <%= text_field_tag(:q) %>
           <%= submit_tag("Найти") %>
         <% end %>
+      </td>
+      
+      <td align='right'>
+      	<%= render 'search_user' %>
       </td>
     </tr>
   </table>

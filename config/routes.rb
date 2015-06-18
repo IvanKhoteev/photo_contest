@@ -60,15 +60,18 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
+  get 'photos', to: 'photos#index', as: 'user_photos'
+  post 'photos', to: 'photos#create'
+
   get 'instagram_search', to: 'photos#instagram_search'
   get '/users/:user_id/photo_collection', to: 'photos#show_collection', as: 'current_user_photo_collection'
   get 'photo/:id', to: 'photos#show', as: 'photo'
-  get '/users/:user_id/photos/:photo_id/comments/:parent_comment_id/comment/new', to: 'comments#new', as: 'new_user_photo_comments_comment'
-  post '/users/:user_id/photos/:photo_id/comments/:parent_comment_id/comment', to: 'comments#create_sub_comment', as: 'user_photo_comments_comments'
+  get '/user/:user_id/photo/:photo_id/comment/:parent_comment_id/comments/new', to: 'comments#new', as: 'new_user_photo_comment_comments'
+  post '/user/:user_id/photo/:photo_id/comment/:parent_comment_id/comments', to: 'comments#create_sub_comment', as: 'user_photo_comment_comments'
 
   
   resources :users do
-    resources :photos do
+    resources :photos, except: [:index, :create] do
       resources :comments 
       resources :likes, only: [:create]
     end
