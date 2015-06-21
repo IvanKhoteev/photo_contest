@@ -1,5 +1,5 @@
-Упорядочить фото по:<br>
-<%= link_to 'дате (вверху старые)', user_photos_path(sorting: 'ca') %> | 
-<%= link_to 'дате (вверху новые)', user_photos_path(sorting: 'cd') %> | 
-<%= link_to 'голосам (вверху большие)', user_photos_path(sorting: 'ld') %> | 
-<%= link_to 'голосам (вверху меньшие)', user_photos_path(sorting: 'la') %>
+  Упорядочить фото по:<br>
+  <%= link_to 'дате (вверху старые)', user_photos_path(sorting: 'created_at ASC', search_by_users_name: params[:search_by_users_name] ? params[:search_by_users_name] : nil) %> | 
+  <%= link_to 'дате (вверху новые)', user_photos_path(sorting: 'created_at DESC',  search_by_users_name: params[:search_by_users_name] ? params[:search_by_users_name] : nil) %> | 
+  <%= link_to 'голосам (вверху большие)', user_photos_path(sorting: 'likes_count DESC',  search_by_users_name: params[:search_by_users_name] ? params[:search_by_users_name] : nil) %> | 
+  <%= link_to 'голосам (вверху меньшие)', user_photos_path(sorting: 'likes_count ASC',  search_by_users_name: params[:search_by_users_name] ? params[:search_by_users_name] : nil) %>

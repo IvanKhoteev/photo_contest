@@ -1,7 +1,8 @@
 class PhotosController < ApplicationController
 
   def index
-    @photos = sorting(Photo.approved.page(params[:page]))
+    @photos = params[:sorting] ? Photo.approved.page(params[:page]).reorder(params[:sorting]) : Photo.approved.page(params[:page])
+    @photos = Photo.approved.page(params[:page]).includes(:user).where(users: { name: User.select(:name).where("name ILIKE :sub_name", { sub_name: "%"+params[:search_by_users_name]+"%" }) } ).page(params[:page]).reorder(params[:sorting]) if params[:search_by_users_name]
   end
 
   def new
@@ -36,10 +37,6 @@ class PhotosController < ApplicationController
     @photos = sorting(Photo.where(user_id: current_user, aasm_state: [:approved, :moderated]).page(params[:page]))
   end
 
-  def search
-    flash.now[:warning] = "По Вашему запросу '#{params[:q]}' ничего не было найдено." unless @photos.any?
-  end
-
   def instagram_search
     @client = Instagram.client(access_token: ENV['ACCESS_TOKEN'])
     @tags = @client.tag_search(params[:q])
@@ -49,18 +46,6 @@ class PhotosController < ApplicationController
 
     def photo_params
       params.require(:photo).permit(:name, :photo)
-    end
-
-    def sorting (list)
-      sorting = case params[:sorting]
-                  when 'ca' then 'created_at ASC'
-                  when 'cd' then 'created_at DESC'
-                  when 'la' then 'likes_count ASC'
-                  when 'ld' then 'likes_count DESC'
-                else
-                  'created_at DESC'
-                end
-      list.order(sorting)
     end
 
 end

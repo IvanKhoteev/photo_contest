@@ -20,11 +20,12 @@
 class Photo < ActiveRecord::Base
 	include AASM
 
-  self.per_page = 10
+  self.per_page = 3
 
   belongs_to :user
   has_many   :comments
   has_many   :likes
+  default_scope -> { order(created_at: :desc) }
   
   mount_uploader :photo, PhotographyUploader
   
