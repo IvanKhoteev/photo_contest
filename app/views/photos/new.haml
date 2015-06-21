@@ -1,0 +1,18 @@
+= form_for :photo, url: user_photos_path do |f|
+  - if @photo.errors.any?
+    #error_explanation
+      %h2
+        = @photo.errors.count
+        ошибки при сохранении записи:
+      %ul
+        - @photo.errors.full_messages.each do |msg|
+          %li= msg
+  %p
+    = f.label 'Введите подпись к фотографии:'
+    %br/
+    = f.text_field :name
+  %p
+    = f.label 'Выберите файл:'
+    %br/
+    = f.file_field :photo, accept: 'image/jpeg,image/gif,image/png'
+  = f.submit "Отправить", class: "btn btn-primary"

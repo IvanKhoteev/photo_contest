@@ -20,7 +20,7 @@
 class Photo < ActiveRecord::Base
 	include AASM
 
-  self.per_page = 3
+  self.per_page = 10
 
   belongs_to :user
   has_many   :comments

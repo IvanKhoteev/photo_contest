@@ -34,7 +34,7 @@ class PhotosController < ApplicationController
   end
 
   def show_collection
-    @photos = sorting(Photo.where(user_id: current_user, aasm_state: [:approved, :moderated]).page(params[:page]))
+    @photos = Photo.where(user_id: current_user, aasm_state: [:approved, :moderated]).page(params[:page])
   end
 
   def instagram_search

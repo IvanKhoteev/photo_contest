@@ -1,0 +1,27 @@
+!!!
+%html
+  %head
+    %title PhotoContest
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    %nav.navbar.navbar-inverse
+      .container
+        .navbar-header
+          = link_to 'Фотоконкурс', root_path, class: 'navbar-brand'
+        #navbar
+          - if current_user
+            %ul.nav.navbar-nav.pull-right
+              %li= link_to 'Добавить новое фото', new_user_photo_path(current_user.id)
+              %li= link_to 'Посмотреть свои фото', current_user_photo_collection_path(current_user.id)
+              %li= image_tag current_user.image_url, alt: current_user.name
+              %li= link_to 'Выйти', logout_path, method: :delete
+          - else
+            %ul.nav.navbar-nav
+              %li= link_to 'Facebook', '/auth/facebook'
+              %li= link_to 'Вконтакте', '/auth/vkontakte'
+              %li= link_to 'Instagram', '/auth/instagram'
+    .container
+      = render 'photos/flash_message'
+      = yield

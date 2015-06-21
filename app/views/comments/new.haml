@@ -1,0 +1,23 @@
+Оставьте свой ответ на следующий комментарий:
+- parent_comment = Comment.find(params[:parent_comment_id])
+- photo = Photo.find(params[:photo_id])
+- parent_comment.body.each_line do |line|
+  %br/
+  %span
+    = line
+= form_for ([current_user, photo, parent_comment, photo.comments.build]) do |f|
+  - if @comment.errors.any?
+    #error_explanation
+      %h2
+        = @comment.errors.count
+        ошибки при сохранении записи:
+      %ul
+        - @comment.errors.full_messages.each do |msg|
+          %li= msg
+  %br/
+  %p
+    = f.label 'Оставьте вашe сообщение'
+    %br/
+    = f.text_area :body, size: "40x5"
+  %p
+    = f.submit 'Отправить', class: 'btn btn-primary'

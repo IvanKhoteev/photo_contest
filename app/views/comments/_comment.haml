@@ -1,0 +1,11 @@
+.comment
+  - comment.body.each_line do |line|
+    %span.comment_body
+      = line
+    %br/
+  - user = User.find(comment.user_id.to_i)
+  %span.sub_comment
+    Дата публикации: #{comment.created_at} Автор комментария: #{user.name}
+  - if current_user
+    %span.sub_comment= link_to 'Ответить на комментарий', new_user_photo_comment_comments_path(parent_comment_id: comment, user_id: current_user, photo_id: comment.photo_id)
+  = render partial: '/comments/comment', collection: comment.sub_comments if comment.sub_comments

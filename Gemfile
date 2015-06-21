@@ -5,6 +5,8 @@ gem 'instagram'
 
 gem 'bootstrap-sass'
 
+gem 'haml'
+
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'

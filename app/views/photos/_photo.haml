@@ -1,0 +1,41 @@
+.jumbotron
+  %table
+    %tr
+      %td{:align => "middle", :valign => "top", :width => "220"}
+        = link_to (image_tag photo.photo.thumb), photo_path(photo.id)
+        %br/
+        = photo.name
+        %br/
+        = "Автор фото: #{User.find(photo.user_id).name}"
+      %td{:align => "middle", :valign => "top", :width => "165"}
+        - if photo.aasm_state == 'approved'
+          - if photo.likes_count == 0
+            %h7 За данное фото
+            %br/
+            %h7 еще не голосовали
+          - else
+            %h7 Количество
+            %br/
+            %h7 голосов:
+            %br/
+            %h2= photo.likes_count
+          - if current_user
+            = form_for ([current_user, photo, photo.likes.build]) do |f|
+              = f.submit 'LIKE THIS',  class: 'btn btn-link'
+        - elsif photo.aasm_state == 'moderated'
+          Фото на модерации
+      %td{:align => "left", :valign => "top", :width => "60%"}
+        - if photo.comments.any?
+          %p{:align => "center"} Последние комментарии:
+          - @comments = photo.comments.order(created_at: :asc).where(parent_comment_id: nil).limit(3)
+          = render partial: '/comments/comment', collection: @comments, as: :comment
+        - else
+          %p{:align => "center"} Комментариев пока нет, оставьте первый комментарий
+        - if current_user
+          = form_for([current_user, photo, photo.comments.build]) do |f|
+            %p{:align => "right"}
+              = f.label 'Оставьте ваш комментарий'
+              %br/
+              = f.text_area :body
+            %p{:align => "right"}
+              = f.submit 'Разместить новый комментарий', class: 'btn btn-primary'
