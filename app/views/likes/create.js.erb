@@ -1,0 +1,5 @@
+$("#photo_#{params[:photo_id]}_likes_count").html("Photo.find(params[:photo_id]).likes_count");
+<%= puts '---------------' %>
+<%= puts "#photo_#{params[:photo_id]}_likes_count" %>
+<%= puts Photo.find(params[:photo_id]).likes_count %>
+<%= puts '+++++++++++++++++++' %>

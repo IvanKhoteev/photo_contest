@@ -26,11 +26,12 @@ class Photo < ActiveRecord::Base
   has_many   :comments
   has_many   :likes
   default_scope -> { order(created_at: :desc) }
+  scope :filtered_by_user_sub_name, -> (sub_name) { joins(:user).where( 'users.name ILIKE ?', "%#{sub_name}%") }
   
   mount_uploader :photo, PhotographyUploader
   
   aasm do # default column: aasm_state
-    state :moderated, :initial => true
+    state :moderated, initial: true
     state :approved
     state :banned
 

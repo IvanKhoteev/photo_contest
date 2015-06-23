@@ -1,0 +1,5 @@
+= form_tag("instagram_search", method: "get") do
+  = label_tag(:q, "Найти фото по хэш-тегу:")
+  %br/
+  = text_field_tag(:q)
+  = submit_tag("Найти")

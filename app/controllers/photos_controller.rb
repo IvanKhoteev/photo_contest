@@ -1,8 +1,9 @@
 class PhotosController < ApplicationController
 
   def index
-    @photos = params[:sorting] ? Photo.approved.page(params[:page]).reorder(params[:sorting]) : Photo.approved.page(params[:page])
-    @photos = Photo.approved.page(params[:page]).includes(:user).where(users: { name: User.select(:name).where("name ILIKE :sub_name", { sub_name: "%"+params[:search_by_users_name]+"%" }) } ).page(params[:page]).reorder(params[:sorting]) if params[:search_by_users_name]
+    @photos = Photo.approved.page(params[:page])
+    @photos = @photos.reorder(params[:sorting]) if params[:sorting].present?
+    @photos = @photos.filtered_by_user_sub_name(params[:search_by_users_name]) if params[:search_by_users_name].present?
   end
 
   def new
@@ -10,23 +11,14 @@ class PhotosController < ApplicationController
   end
 
   def create
-    @photo = current_user.photos.create(photo_params)
-    if @photo.save
+    outcome = Photos::Create.run(photo_params.merge(user: current_user))
+    if outcome.success?
+      @photo = outcome.result
       flash[:success] = "Фотография отправлена на модерацию!"
       redirect_to root_path
     else
-      render 'new'
+      render outcome.errors
     end
-
-
- #   outcome = Photos::Create.run(photo_params.merge(user: current_user))
- #   if outcome.success?
- #     @photo = outcome.result
- #     flash[:success] = "Фотография отправлена на модерацию!"
- #     redirect_to root_path
- #   else
- #     render outcome.errors
- #   end
   end
 
   def show
@@ -39,7 +31,11 @@ class PhotosController < ApplicationController
 
   def instagram_search
     @client = Instagram.client(access_token: ENV['ACCESS_TOKEN'])
-    @tags = @client.tag_search(params[:q])
+    @images_url = []
+    @tag = (params[:q].split)[0]
+    for media_item in @client.tag_recent_media(URI.encode(@tag), count: 50)
+      @images_url << media_item.images.thumbnail.url
+    end
   end
 
   private

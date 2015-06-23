@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   has_many :photos
   has_many :comments
   has_many :likes, through: :photos
+  
 
   class << self
     def from_omniauth(auth_hash)

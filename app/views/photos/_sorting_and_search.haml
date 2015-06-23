@@ -4,10 +4,6 @@
       %td{:height => "80em"}
         = render 'sorting'
       %td{:align => "right"}
-        = form_tag("instagram_search", method: "get") do
-          = label_tag(:q, "Найти фото по хэш-тегу:")
-          %br/
-          = text_field_tag(:q)
-          = submit_tag("Найти")
+        = render 'search_tag'
       %td{:align => "right"}
         = render 'search_user'

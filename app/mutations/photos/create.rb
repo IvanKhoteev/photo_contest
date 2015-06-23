@@ -8,7 +8,7 @@ module Photos
     end
 
     def execute
-      user.photos.create(name: :name, photo: :photo)
+      user.photos.create(name: name, photo: photo)
     end
   
   end

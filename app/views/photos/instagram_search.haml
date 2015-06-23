@@ -1,10 +1,9 @@
-= render 'sorting_and_search'
-- if @tags[0]
+.jimbotron
+  = render 'search_tag'
+  %br/
   %h2
-    Последние 20 фотографий из Instagram по хэш-тегу "#{@tags[0].name}":
-  - for media_item in @client.tag_recent_media(@tags[0].name)
-    = image_tag media_item.images.thumbnail.url
-- else
-  %h2
-    По вашему запросу '#{params[:q]}' ничего не было найдено.
-  %h2 Попробуйте ввсети другой запрос
+    = "Картинки, найденные по тегу '#{@tag}':"
+  %br/
+  - @images_url.each do |image|
+    = image_tag image
+
