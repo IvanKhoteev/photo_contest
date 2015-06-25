@@ -7,6 +7,8 @@ gem 'bootstrap-sass'
 
 gem 'haml'
 
+gem 'rails-api', require: 'rails-api/action_controller/api'
+
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
