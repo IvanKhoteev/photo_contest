@@ -53,6 +53,22 @@
 #
 
 Rails.application.routes.draw do
+
+  namespace :api, defaults: {format: :json} do
+    namespace :v1 do
+      resources :users, only: [:index, :show, :show_photos, :show_comments]
+      resources :photos, only: [:index, :create, :show, :show_comments, :search, :popular, :recent] do
+        with_options only: :create do |list_only|
+          list_only.resources :comments
+          list_only.resources :likes
+        end
+      end
+    end
+  end
+
+
+
+
   ActiveAdmin.routes(self)
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
