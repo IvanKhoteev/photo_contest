@@ -1,26 +1,22 @@
-module Api
+module API
   module V1
-
     class UsersController < ApplicationController
-
+      layout false
+      
       def index
         @users = User.all
-        render json: @users
+        @users = @users.where('users.name ILIKE ?', "%#{params[:search]}%") if params[:search].present?
+        @users = @users.order(created_at: :desc).limit(5) if params.include?(:recent)
+        render status: 200
       end
-     
+      
       def show
         @user = User.find(params[:id])
-        render json: @user
+        render status: 200
       end
 
-      def search
-        @users = User.where( 'name ILIKE ?', "%#{params[:sub_name]}%")
-        render json: @users
-      end
-
-      def recent
-        @users = User.order(created_at: :desc).limit(5)
-        render json: @users
+      def show_photos
+        @photos = User.find(params[:user_id]).photos        
       end
 
     end

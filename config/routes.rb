@@ -62,27 +62,22 @@
 
 Rails.application.routes.draw do
 
-  namespace :api do
+  namespace :api, defaults: {format: :json} do
     namespace :v1 do
-
-      get 'photos/recent', to: 'photos#recent'
-      get 'photos/popular', to: 'photos#popular'
-      get 'photos/:sub_name/search', to: 'photos#search', as: 'photo_search'
-      get 'users/recent', to: 'users#recent'
-      get 'users/:sub_name/search', to: 'users#search', as: 'user_search'
-
-      resources :users, only: [:index, :show, :photo_collection] do
-        resources :comments, only: :index
-      get '/photos', to: 'photos#show_collection', as: 'user_photos'
+      resources :users, only: [:index, :show, :show_comments] do
+        get '/photos', to: 'users#show_photos'
       end
-
-      resources :photos, only: [:index, :show] do
-        resources :comments, only: :index
+      resources :photos, only: [:index, :create, :show, :show_comments, :search, :popular, :recent] do
+        with_options only: :create do |list_only|
+          list_only.resources :comments
+          list_only.resources :likes
+        end
       end
-
-      
     end
   end
+
+
+
 
   ActiveAdmin.routes(self)
   # The priority is based upon order of creation: first created -> highest priority.
