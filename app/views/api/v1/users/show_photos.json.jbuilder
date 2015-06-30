@@ -1,1 +1,2 @@
-json.photos @photos, :id, :name, :photo, :likes_count
+json.user @user, :id, :name
+json.photos @user.photos, :id, :name, :photo, :likes_count

@@ -16,7 +16,13 @@ module API
       end
 
       def show_photos
-        @photos = User.find(params[:user_id]).photos        
+        @user = User.find(params[:user_id])
+        render status: 200
+      end
+
+      def show_comments
+        @user = User.find(params[:user_id])
+        render status: 200
       end
 
     end

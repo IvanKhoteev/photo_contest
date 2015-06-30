@@ -64,10 +64,12 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: :json} do
     namespace :v1 do
-      resources :users, only: [:index, :show, :show_comments] do
-        get '/photos', to: 'users#show_photos'
+      resources :users, only: [:index, :show] do
+        get '/photos',   to: 'users#show_photos'
+        get '/comments', to: 'users#show_comments'
       end
-      resources :photos, only: [:index, :create, :show, :show_comments, :search, :popular, :recent] do
+      resources :photos, only: [:index, :create, :show] do
+        get '/comments', to: 'photos#show_comments'
         with_options only: :create do |list_only|
           list_only.resources :comments
           list_only.resources :likes
