@@ -27,7 +27,10 @@ class Photo < ActiveRecord::Base
   has_many   :likes
   default_scope -> { order(created_at: :desc) }
   scope :filtered_by_user_sub_name, -> (sub_name) { joins(:user).where( 'users.name ILIKE ?', "%#{sub_name}%") }
-  
+  scope :searched, -> (name) { where('photos.name ILIKE ?', "%#{name}%") }
+  scope :recent,   -> { reorder(created_at: :desc).limit(5) }
+  scope :popular,  -> { reorder(likes_count: :desc).limit(5) }
+
   mount_uploader :photo, PhotographyUploader
   
   aasm do # default column: aasm_state

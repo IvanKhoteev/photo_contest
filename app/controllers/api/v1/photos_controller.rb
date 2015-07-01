@@ -19,9 +19,9 @@ module API
 
       def index
         @photos = Photo.approved
-        @photos = @photos.where('photos.name ILIKE ?', "%#{params[:search]}%") if params[:search].present?
-        @photos = @photos.limit(5) if params.include?(:recent)
-        @photos = @photos.reorder(likes_count: :desc).limit(5) if params.include?(:popular)
+        @photos = @photos.searced(params[:search]) if params[:search].present?
+        @photos = @photos.recent if params.include?(:recent)
+        @photos = @photos.popular if params.include?(:popular)
         render status: 200
       end
      

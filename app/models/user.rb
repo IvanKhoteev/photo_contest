@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :likes, through: :photos
   
+  scope :searched, -> (name) { where('users.name ILIKE ?', "%#{name}%") }
+  scope :recent, -> { order(created_at: :desc).limit(5) }
 
   class << self
     def from_omniauth(auth_hash)

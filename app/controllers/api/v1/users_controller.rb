@@ -5,8 +5,8 @@ module API
       
       def index
         @users = User.all
-        @users = @users.where('users.name ILIKE ?', "%#{params[:search]}%") if params[:search].present?
-        @users = @users.order(created_at: :desc).limit(5) if params.include?(:recent)
+        @users = @users.searched(params[:search]) if params[:search].present?
+        @users = @users.recent if params.include?(:recent)
         render status: 200
       end
       
