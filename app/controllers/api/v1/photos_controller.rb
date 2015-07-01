@@ -6,11 +6,12 @@ module API
 
       def create
         if current_user
-          photo = Photo.new(name: params[:name], photo: params[:photo], user_id: current_user.id)
-          if photo.save
+          outcome = Photos::Create.run(name: params[:name], photo: params[:photo], user: current_user)
+          if outcome.success?
+            photo = outcome.result
             render json: photo , status: 201 , location: photo
           else
-            render json: { message: 'Something went wrong' }
+            render json: outcome.errors
           end
         else
           render json: { message: 'To add a photo to the site login (/auth/:provider), please' }
@@ -19,7 +20,7 @@ module API
 
       def index
         @photos = Photo.approved
-        @photos = @photos.searced(params[:search]) if params[:search].present?
+        @photos = @photos.searched(params[:search]) if params[:search].present?
         @photos = @photos.recent if params.include?(:recent)
         @photos = @photos.popular if params.include?(:popular)
         render status: 200
