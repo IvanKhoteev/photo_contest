@@ -22,7 +22,8 @@ gem 'carrierwave',             '0.10.0'
 gem 'mini_magick',             '3.8.0'
 gem 'fog'
 
-gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin', '~> 1.0.0.pre1'
+gem 'devise'
 gem 'aasm'
 gem 'annotate'
 
