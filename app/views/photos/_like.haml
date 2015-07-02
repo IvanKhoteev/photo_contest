@@ -1,2 +1,2 @@
-= form_for [current_user, photo, photo.likes.build], remote: true do |f|
+= form_for [current_user, photo, photo.likes.build] do |f|
   = f.submit 'LIKE THIS',  class: 'btn btn-link'

@@ -6,22 +6,28 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @photo = Photo.find(params[:photo_id])
-    @comment = @photo.comments.create(comment_params.merge(user_id: current_user.id))
-    redirect_to request.referer
+    photo = Photo.find(params[:photo_id])
+    outcome = Comments::Create.run(photo: photo, user: current_user, body: params[:comment]['body'], parent_comment_id: params[:parent_comment_id])
+    if outcome.success?
+      comment = outcome.result
+      flash[:success] = "Комментарий добавлен!"
+      redirect_to request.referer
+    else
+      render html: outcome.errors.message
+    end
   end
 
-  def create_sub_comment
-    @photo = Photo.find(params[:photo_id])
-    @comment = @photo.comments.create(comment_params.merge(user_id: current_user.id, parent_comment_id: params[:parent_comment_id]))
+  # def create_sub_comment
+  #   @photo = Photo.find(params[:photo_id])
+  #   @comment = @photo.comments.create(comment_params.merge(user_id: current_user.id, parent_comment_id: params[:parent_comment_id]))
 
-    while @comment.parent_comment do
-      parent_comment = @comment.parent_comment
-      parent_comment.updated_at = @comment.updated_at
-      parent_comment.save
-      @comment = parent_comment
-    end
-    redirect_to root_path
+  #   while @comment.parent_comment do
+  #     parent_comment = @comment.parent_comment
+  #     parent_comment.updated_at = @comment.updated_at
+  #     parent_comment.save
+  #     @comment = parent_comment
+  #   end
+  #   redirect_to root_path
     
   end
 

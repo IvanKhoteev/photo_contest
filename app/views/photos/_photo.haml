@@ -18,7 +18,6 @@
             = @photo.likes_count
           - if current_user
             = render partial: 'like', locals: {photo: @photo}
-            = link_to 'like', user_photo_likes_path(user_id: current_user, photo_id: @photo), method: :post, remote: true
         - elsif @photo.aasm_state == 'moderated'
           Фото на модерации
       %td{:align => "left", :valign => "top", :width => "60%"}

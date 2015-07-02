@@ -9,7 +9,7 @@ module API
           outcome = Photos::Create.run(photo_params.merge(user: current_user))
           if outcome.success?
             photo = outcome.result
-            render json: photo , status: 201 , location: photo
+            render nothing: true , status: 201
           else
             render json: outcome.errors.symbolic, status: 422
           end
