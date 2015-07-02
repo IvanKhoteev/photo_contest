@@ -3,6 +3,12 @@ module API
     class CommentsController < ApplicationController
       layout false
 
+      def index
+        @comments = Comment.all
+        @comments = @comments.where(user_id: params[:user_id]) if params[:user_id].present?
+        @comments = @comments.where(photo_id: params[:photo_id]) if params[:photo_id].present?
+      end
+
       def create
         if current_user
           photo = Photo.find(params[:photo_id])
@@ -15,7 +21,7 @@ module API
             render json: { message: 'Something went wrong' }
           end
         else
-          render json: { message: 'To add a comment to the site login (/auth/:provider), please' }
+          render json: { message: 'To add a comment to the site login (/auth/:provider), please' } , status: 401
         end
       end
 

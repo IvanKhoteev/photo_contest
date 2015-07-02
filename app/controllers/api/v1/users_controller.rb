@@ -15,16 +15,6 @@ module API
         render status: 200
       end
 
-      def show_photos
-        @user = User.find(params[:user_id])
-        render status: 200
-      end
-
-      def show_comments
-        @user = User.find(params[:user_id])
-        render status: 200
-      end
-
     end
   end
 end

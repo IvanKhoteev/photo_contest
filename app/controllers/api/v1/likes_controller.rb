@@ -13,7 +13,7 @@ module API
             render json: { message: 'Something went wrong' }
           end
         else
-          render json: { message: 'To add a like to the site login (/auth/:provider), please' }
+          render json: { message: 'To add a like to the site login (/auth/:provider), please' }, status: 401
         end
       end
 
