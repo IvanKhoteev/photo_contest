@@ -1,5 +1,5 @@
+# Controller for photography
 class PhotosController < ApplicationController
-
   def index
     @photos = Photo.approved.page(params[:page])
     @photos = @photos.reorder(params[:sorting]) if params[:sorting].present?
@@ -14,7 +14,7 @@ class PhotosController < ApplicationController
     outcome = Photos::Create.run(photo_params.merge(user: current_user))
     if outcome.success?
       @photo = outcome.result
-      flash[:success] = "Фотография отправлена на модерацию!"
+      flash[:success] = 'Фотография отправлена на модерацию!'
       redirect_to root_path
     else
       render outcome.errors.symbolic
@@ -40,8 +40,7 @@ class PhotosController < ApplicationController
 
   private
 
-    def photo_params
-      params.require(:photo).permit(:name, :photo)
-    end
-
+  def photo_params
+    params.require(:photo).permit(:name, :photo)
+  end
 end

@@ -1,6 +1,7 @@
+# ...
 module Comments
+  # ...
   class Create < Mutations::Command
-
     required do
       model  :user
       model  :photo
@@ -12,9 +13,7 @@ module Comments
     end
 
     def execute
-
       Comment.create(inputs)
     end
-  
   end
 end

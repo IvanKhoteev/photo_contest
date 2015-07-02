@@ -1,5 +1,4 @@
 ActiveAdmin.register Photo do
-
   index do
     selectable_column
     column :name
@@ -9,8 +8,8 @@ ActiveAdmin.register Photo do
     column :author do |pg|
       User.find(pg.user_id).name
     end
-    column "Current Status", :aasm_state
-    column "Moderation", :moderation do |pg|
+    column 'Current Status', :aasm_state
+    column 'Moderation', :moderation do |pg|
       columns do
         column do
           link_to 'Approve', approve_admin_photo_path(pg) unless pg.aasm_state == 'approved'
@@ -32,5 +31,4 @@ ActiveAdmin.register Photo do
     resource.ban!
     redirect_to admin_photos_path
   end
-
 end

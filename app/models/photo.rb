@@ -18,7 +18,7 @@
 #
 
 class Photo < ActiveRecord::Base
-	include AASM
+  include AASM
 
   self.per_page = 10
 
@@ -26,27 +26,25 @@ class Photo < ActiveRecord::Base
   has_many   :comments
   has_many   :likes
   default_scope     -> { order(created_at: :desc) }
-  scope :filtered_by_user_sub_name, -> (sub_name) { joins(:user).where( 'users.name ILIKE ?', "%#{sub_name}%") }
-  scope :searched,  -> (name) { where('photos.name ILIKE ?', "%#{name}%") }
-  scope :from_user, -> (user_id) { where(user_id: user_id) }
+  scope :filtered_by_user_sub_name, -> (sub_name) { joins(:user).where('users.name ILIKE ?', "%#{sub_name}%") }
+  scope :searched,  ->(name) { where('photos.name ILIKE ?', "%#{name}%") }
+  scope :from_user, ->(user_id) { where(user_id: user_id) }
   scope :recent,    -> { reorder(created_at: :desc).limit(5) }
   scope :popular,   -> { reorder(likes_count: :desc).limit(5) }
 
   mount_uploader :photo, PhotographyUploader
-  
+
   aasm do # default column: aasm_state
     state :moderated, initial: true
     state :approved
     state :banned
 
     event :approve do
-      transitions :from => [:moderated, :banned], :to => :approved
+      transitions from: [:moderated, :banned], to: :approved
     end
 
     event :ban do
-      transitions :from => [:moderated, :approved], :to => :banned
+      transitions from: [:moderated, :approved], to: :banned
     end
-
   end
-  
 end

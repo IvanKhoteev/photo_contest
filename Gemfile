@@ -14,6 +14,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
 gem 'omniauth-instagram'
 gem 'figaro'
+gem 'rubocop'
 
 gem 'will_paginate'
 gem 'mutations'

@@ -1,20 +1,18 @@
+# ...
 module API
+  # ...
   module V1
-
+    # ...
     class PhotosController < ApplicationController
       layout false
+      before_action :autorization, only: :create
 
       def create
-        if current_user
-          outcome = Photos::Create.run(photo_params.merge(user: current_user))
-          if outcome.success?
-            photo = outcome.result
-            render nothing: true , status: 201
-          else
-            render json: outcome.errors.symbolic, status: 422
-          end
+        outcome = Photos::Create.run(name: params[:name], photo: params[:photo], user: current_user)
+        if outcome.success?
+          render nothing: true, status: 201
         else
-          render json: { message: 'To add a photo to the site login (/auth/:provider), please' }, status: 401
+          render json: outcome.errors.symbolic, status: 422
         end
       end
 
@@ -26,16 +24,10 @@ module API
         @photos = @photos.popular if params.include?(:popular)
         render status: 200
       end
-     
+
       def show
         @photo = Photo.approved.find(params[:id])
         render status: 200
-      end
-
-      private
-
-      def photo_params
-        params.require(:photo).permit(:name, :photo)
       end
 
     end
