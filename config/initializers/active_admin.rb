@@ -1,4 +1,8 @@
 ActiveAdmin.setup do |config|
+
+  # Set I18n locale
+  config.before_filter :set_admin_locale
+
   # == Site Title
   #
   # Set the title that is displayed on the main layout
@@ -119,7 +123,7 @@ ActiveAdmin.setup do |config|
   # This allows your users to comment on any resource registered with Active Admin.
   #
   # You can completely disable comments:
-  # config.comments = false
+  config.comments = false
   #
   # You can disable the menu item for the comments index page:
   # config.show_comments_in_menu = false

@@ -14,6 +14,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def set_admin_locale
+    I18n.locale = :ru
+  end
+
   helper_method :current_user
   helper_method :autorization
 end
