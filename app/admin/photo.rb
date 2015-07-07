@@ -1,3 +1,4 @@
+require 'sidekiq/api'
 ActiveAdmin.register Photo do
   index do
     selectable_column
@@ -29,7 +30,7 @@ ActiveAdmin.register Photo do
 
   member_action :ban do
     resource.ban!
-    RemovePhotoWorker.perform_in(20.seconds, params[:id])
+    RemovePhotoWorker.perform_in(30.minutes, params[:id])
     redirect_to admin_photos_path
   end
 end
