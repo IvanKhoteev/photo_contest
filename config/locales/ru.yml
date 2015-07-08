@@ -1,18 +1,19 @@
 ru:
+  activerecord:
+    models:
+      photo: Фото
+    attributes:
+      photo:
+        name: "Подпись фото"
+        photo: "Иконка фото"
+        author: "Автор"
+        aasm_state: "Текущий статус"
   approve: "Принять"
   ban: "Заблокировать"
-  approved: "Разрешено"
-  moderated: "Модерируется"
   time:
       formats:
         long: "%Y-%m-%d %H:%M:%S"
   active_admin:
-    photos:
-      name: "Подпись фото"
-      photo: "Иконка фото"
-      author: "Автор"
-      status: "Текущий статус"
-      moderation: "Модерационные действия"
     admin_users:
         email: "Адрес электронной почты"
     dashboard: "Панель управления"

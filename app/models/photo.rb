@@ -23,8 +23,8 @@ class Photo < ActiveRecord::Base
   self.per_page = 10
 
   belongs_to :user
-  has_many   :comments
-  has_many   :likes
+  has_many   :comments, dependent: :destroy
+  has_many   :likes,    dependent: :destroy
   default_scope     -> { order(created_at: :desc) }
   scope :filtered_by_user_sub_name, -> (sub_name) { joins(:user).where('users.name ILIKE ?', "%#{sub_name}%") }
   scope :searched,  ->(name) { where('photos.name ILIKE ?', "%#{name}%") }
