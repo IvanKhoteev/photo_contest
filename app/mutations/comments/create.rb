@@ -9,7 +9,7 @@ module Comments
     end
 
     optional do
-      integer :parent_user_id
+      integer :parent_comment_id
     end
 
     def execute

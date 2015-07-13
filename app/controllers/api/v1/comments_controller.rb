@@ -8,9 +8,10 @@ module API
       before_action :autorization, only: :create
 
       def index
-        @comments = Comment.all
-        @comments = @comments.where(user_id: params[:user_id]) if params[:user_id].present?
-        @comments = @comments.where(photo_id: params[:photo_id]) if params[:photo_id].present?
+        comments = Comment.all
+        comments = comments.where(user_id: params[:user_id]) if params[:user_id].present?
+        comments = comments.where(photo_id: params[:photo_id], parent_comment_id: nil) if params[:photo_id].present?
+        render json: comments, user_id: params[:user_id], status: 200
       end
 
       def create

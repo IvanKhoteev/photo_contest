@@ -17,17 +17,17 @@ module API
       end
 
       def index
-        @photos = Photo.approved
-        @photos = @photos.searched(params[:search]) if params[:search].present?
-        @photos = @photos.from_user(params[:user_id]) if params[:user_id].present?
-        @photos = @photos.recent if params.include?(:recent)
-        @photos = @photos.popular if params.include?(:popular)
-        render status: 200
+        photos = Photo.approved
+        photos = photos.searched(params[:search]) if params[:search].present?
+        photos = photos.from_user(params[:user_id]) if params[:user_id].present?
+        photos = photos.recent if params.include?(:recent)
+        photos = photos.popular if params.include?(:popular)
+        render json: photos, status: 200
       end
 
       def show
-        @photo = Photo.approved.find(params[:id])
-        render status: 200
+        photo = Photo.approved.find(params[:id])
+        render json: photo, status: 200
       end
 
     end

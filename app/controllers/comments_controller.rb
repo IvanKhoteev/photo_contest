@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
     outcome = Comments::Create.run(photo: photo, user: current_user, body: params[:comment]['body'], parent_comment_id: params[:parent_comment_id])
     if outcome.success?
       flash[:success] = 'Комментарий добавлен!'
-      redirect_to request.referer
+      redirect_to root_path
     else
       render html: outcome.errors.message
     end
