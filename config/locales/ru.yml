@@ -6,7 +6,7 @@ ru:
       photo:
         name: "Подпись фото"
         photo: "Иконка фото"
-        author: "Автор"
+        author_name: "Автор"
         aasm_state: "Текущий статус"
   approve: "Принять"
   ban: "Заблокировать"

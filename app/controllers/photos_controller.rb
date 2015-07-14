@@ -17,7 +17,8 @@ class PhotosController < ApplicationController
       flash[:success] = 'Фотография отправлена на модерацию!'
       redirect_to root_path
     else
-      render outcome.errors.symbolic
+      flash[:warning] = "Возникли ошибки при передаче фото на сервер #{outcome.errors.message}"
+      redirect_to request.referer
     end
   end
 

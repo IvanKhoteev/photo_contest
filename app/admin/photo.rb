@@ -6,7 +6,7 @@ ActiveAdmin.register Photo do
     column  :photo do |pg|
       image_tag pg.photo.thumb
     end
-    column :author do |pg|
+    column :author_name do |pg|
       User.find(pg.user_id).name
     end
     column :aasm_state

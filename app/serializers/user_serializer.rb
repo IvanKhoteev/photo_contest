@@ -1,3 +1,4 @@
+# ...
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :name, :url, :image_url
 
@@ -8,6 +9,4 @@ class UserSerializer < ActiveModel::Serializer
   def include_image_url?
     @options[:user_id].present?
   end
-
-
 end

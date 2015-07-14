@@ -1,3 +1,4 @@
+# ...
 class PhotoSerializer < ActiveModel::Serializer
   attributes :id, :name, :photo_url, :likes_count, :user_id
 

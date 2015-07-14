@@ -68,10 +68,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: [:index, :show] do
         get '/photos',   to: 'photos#index'
-        get '/comments', to: 'comments#index'
+        resources :comments, only: :index, module: :users
       end
       resources :photos, only: [:index, :create, :show] do
-        resources :comments, only: [:create, :index]
+        resources :comments, only: [:create, :index], module: :photos
         resources :likes, only: :create
       end
     end

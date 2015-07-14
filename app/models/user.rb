@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   has_many :photos
   has_many :comments
   has_many :likes, through: :photos
+  delegate :name,  to: :class, prefix: :author
 
   scope :searched, -> (name) { where('users.name ILIKE ?', "%#{name}%") }
   scope :recent, -> { order(created_at: :desc).limit(5) }

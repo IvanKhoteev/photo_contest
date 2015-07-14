@@ -1,6 +1,7 @@
 # Main controller
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :null_session, only: Proc.new { |c| c.request.format.json? }
+  protect_from_forgery with: :null_session,
+                       only: Proc.new { |c| c.request.format.json? }
 
   private
 
@@ -9,9 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def autorization
-    if current_user.blank?
-      render nothing: true, status: 401
-    end
+      render nothing: true, status: 401 if current_user.blank?
   end
 
   def set_admin_locale

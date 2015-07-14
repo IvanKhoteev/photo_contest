@@ -12,7 +12,9 @@ module Likes
     end
 
     def validate
-      add_error(:uniqieness, :users_like_already_exist, 'You are already liked this photo!') if Like.where(user_id: user.id, photo_id: photo.id).any?
+      if Like.where(user_id: user.id, photo_id: photo.id).any?
+        add_error(:uniqieness, :users_like_already_exist, 'You are already liked this photo!')
+      end
     end
   end
 end

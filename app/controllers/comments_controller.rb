@@ -6,7 +6,9 @@ class CommentsController < ApplicationController
 
   def create
     photo = Photo.find(params[:photo_id])
-    outcome = Comments::Create.run(photo: photo, user: current_user, body: params[:comment]['body'], parent_comment_id: params[:parent_comment_id])
+    outcome = Comments::Create.run(photo: photo, user: current_user,
+                                   body: params[:comment]['body'],
+                                   parent_comment_id: params[:parent_comment_id])
     if outcome.success?
       flash[:success] = 'Комментарий добавлен!'
       redirect_to root_path

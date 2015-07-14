@@ -8,7 +8,8 @@ module API
       before_action :autorization, only: :create
 
       def create
-        outcome = Photos::Create.run(name: params[:name], photo: params[:photo], user: current_user)
+        outcome = Photos::Create.run(name: params[:name],
+                                     photo: params[:photo], user: current_user)
         if outcome.success?
           render nothing: true, status: 201
         else
